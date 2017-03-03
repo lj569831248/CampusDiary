@@ -876,7 +876,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 5K93T4P36N;
-				GCC_PREFIX_HEADER = /Users/jon/Desktop/CampusDiary/CampusDiary/Base/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/CampusDiary/Base/PrefixHeader.pch";
 				INFOPLIST_FILE = CampusDiary/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -892,7 +892,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 5K93T4P36N;
-				GCC_PREFIX_HEADER = /Users/jon/Desktop/CampusDiary/CampusDiary/Base/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/CampusDiary/Base/PrefixHeader.pch";
 				INFOPLIST_FILE = CampusDiary/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
