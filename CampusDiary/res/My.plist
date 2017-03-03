@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<array>
+		<dict>
+			<key>nextVC</key>
+			<string>CDMyDiaryVC</string>
+			<key>title</key>
+			<string>我的日记</string>
+			<key>image</key>
+			<string>my_diary</string>
+		</dict>
+		<dict>
+			<key>nextVC</key>
+			<string></string>
+			<key>title</key>
+			<string>意见反馈</string>
+			<key>image</key>
+			<string>my_feedback</string>
+		</dict>
+		<dict>
+			<key>nextVC</key>
+			<string>CDPrivacyPolicyVC</string>
+			<key>title</key>
+			<string>隐私条款</string>
+			<key>image</key>
+			<string>my_privacypolicy</string>
+		</dict>
+		<dict>
+			<key>nextVC</key>
+			<string>RHAboutVC</string>
+			<key>title</key>
+			<string>关于我们</string>
+			<key>image</key>
+			<string>my_about</string>
+		</dict>
+	</array>
+</array>
+</plist>

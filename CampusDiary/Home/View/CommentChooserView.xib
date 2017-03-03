@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="120" height="30"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lhu-Qw-Een">
+                    <rect key="frame" x="0.0" y="0.0" width="60" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <state key="normal" title="赞"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MWb-hG-R6o">
+                    <rect key="frame" x="60" y="0.0" width="60" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <state key="normal" title="评论"/>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bch-Y3-jnP">
+                    <rect key="frame" x="59.5" y="4" width="1" height="22"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="0.5" id="DLH-xz-4Xk"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.33333333333333331" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="Lhu-Qw-Een" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="1G0-jW-Gig"/>
+                <constraint firstItem="Bch-Y3-jnP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="4" id="7Wn-m5-59o"/>
+                <constraint firstAttribute="trailing" secondItem="MWb-hG-R6o" secondAttribute="trailing" id="7jX-cW-6K4"/>
+                <constraint firstItem="MWb-hG-R6o" firstAttribute="width" secondItem="Lhu-Qw-Een" secondAttribute="width" id="HGf-Y9-FHU"/>
+                <constraint firstAttribute="bottom" secondItem="MWb-hG-R6o" secondAttribute="bottom" id="Ntt-zm-Qhs"/>
+                <constraint firstAttribute="bottom" secondItem="Lhu-Qw-Een" secondAttribute="bottom" id="QOV-dc-035"/>
+                <constraint firstItem="Bch-Y3-jnP" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="X5L-id-DwA"/>
+                <constraint firstItem="Bch-Y3-jnP" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="cU8-P5-3ff"/>
+                <constraint firstItem="MWb-hG-R6o" firstAttribute="leading" secondItem="Lhu-Qw-Een" secondAttribute="trailing" id="hgn-On-PVT"/>
+                <constraint firstItem="MWb-hG-R6o" firstAttribute="height" secondItem="Lhu-Qw-Een" secondAttribute="height" id="sMO-5h-eNg"/>
+                <constraint firstItem="MWb-hG-R6o" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ute-GI-HmK"/>
+                <constraint firstItem="Lhu-Qw-Een" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="zbA-hK-xQb"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-56" y="25"/>
+        </view>
+    </objects>
+</document>

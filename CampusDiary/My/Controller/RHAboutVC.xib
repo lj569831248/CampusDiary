@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RHAboutVC">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fc8-Qx-uwm">
+                    <rect key="frame" x="40" y="100" width="295" height="467"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_icon" translatesAutoresizingMaskIntoConstraints="NO" id="iz1-0Q-Fv7">
+                            <rect key="frame" x="87" y="0.0" width="120" height="120"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="iz1-0Q-Fv7" secondAttribute="height" id="PxK-mx-69b"/>
+                                <constraint firstAttribute="width" constant="120" id="h5X-lY-28m"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上海卓易科技股份有限公司" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jFz-lp-lOu">
+                            <rect key="frame" x="55" y="128" width="184" height="18"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3DM-cf-eu6">
+                            <rect key="frame" x="0.0" y="186" width="295.5" height="0.0"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上海卓易科技股份有限公司" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="udG-n8-mRw">
+                            <rect key="frame" x="67.5" y="451" width="159.5" height="16"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copright  ©2016-2017" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ew1-bU-c3b">
+                            <rect key="frame" x="79" y="427" width="136.5" height="16"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="iz1-0Q-Fv7" firstAttribute="centerX" secondItem="Fc8-Qx-uwm" secondAttribute="centerX" id="2rY-bJ-5SG"/>
+                        <constraint firstItem="3DM-cf-eu6" firstAttribute="centerX" secondItem="Fc8-Qx-uwm" secondAttribute="centerX" id="Axa-NB-A4t"/>
+                        <constraint firstItem="jFz-lp-lOu" firstAttribute="centerX" secondItem="Fc8-Qx-uwm" secondAttribute="centerX" id="Fqq-zv-SBV"/>
+                        <constraint firstAttribute="bottom" secondItem="udG-n8-mRw" secondAttribute="bottom" id="b0G-yM-mpd"/>
+                        <constraint firstItem="udG-n8-mRw" firstAttribute="top" secondItem="ew1-bU-c3b" secondAttribute="bottom" constant="8" id="bHI-ES-va2"/>
+                        <constraint firstItem="ew1-bU-c3b" firstAttribute="centerX" secondItem="Fc8-Qx-uwm" secondAttribute="centerX" id="qlc-DZ-yn0"/>
+                        <constraint firstItem="udG-n8-mRw" firstAttribute="centerX" secondItem="Fc8-Qx-uwm" secondAttribute="centerX" id="reU-im-Hdx"/>
+                        <constraint firstItem="iz1-0Q-Fv7" firstAttribute="top" secondItem="Fc8-Qx-uwm" secondAttribute="top" id="s6R-wp-Jxf"/>
+                        <constraint firstItem="jFz-lp-lOu" firstAttribute="top" secondItem="iz1-0Q-Fv7" secondAttribute="bottom" constant="8" id="sgK-9G-3oc"/>
+                        <constraint firstItem="3DM-cf-eu6" firstAttribute="top" secondItem="jFz-lp-lOu" secondAttribute="bottom" constant="40" id="xSe-Ct-73D"/>
+                        <constraint firstItem="3DM-cf-eu6" firstAttribute="leading" secondItem="Fc8-Qx-uwm" secondAttribute="leading" id="zb0-2Q-Oug"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Fc8-Qx-uwm" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="100" id="AZj-aY-ISi"/>
+                <constraint firstItem="Fc8-Qx-uwm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="LHS-jC-b1p"/>
+                <constraint firstItem="Fc8-Qx-uwm" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="TZ2-B4-Lya"/>
+                <constraint firstItem="Fc8-Qx-uwm" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="ixZ-2O-EuI"/>
+            </constraints>
+        </view>
+    </objects>
+    <resources>
+        <image name="app_icon" width="144" height="144"/>
+    </resources>
+</document>

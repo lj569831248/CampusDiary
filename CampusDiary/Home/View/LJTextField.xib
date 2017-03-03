@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LJTextField">
+            <connections>
+                <outlet property="placeholderLabel" destination="MOM-st-Jlo" id="c1b-8k-nuE"/>
+                <outlet property="textView" destination="HaY-ig-b9e" id="mEP-Hk-2He"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="377" height="73"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="HaY-ig-b9e">
+                    <rect key="frame" x="0.0" y="0.0" width="377" height="73"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MOM-st-Jlo">
+                    <rect key="frame" x="8" y="8" width="0.0" height="0.0"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="MOM-st-Jlo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="INg-Hn-hjO"/>
+                <constraint firstItem="HaY-ig-b9e" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="UCP-nF-nfA"/>
+                <constraint firstItem="MOM-st-Jlo" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="VTE-ph-wVn"/>
+                <constraint firstItem="HaY-ig-b9e" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="fqA-RJ-ZGl"/>
+                <constraint firstAttribute="bottom" secondItem="HaY-ig-b9e" secondAttribute="bottom" id="onv-30-yLG"/>
+                <constraint firstAttribute="trailing" secondItem="HaY-ig-b9e" secondAttribute="trailing" id="reN-E5-whN"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="35" y="-190"/>
+        </view>
+    </objects>
+</document>

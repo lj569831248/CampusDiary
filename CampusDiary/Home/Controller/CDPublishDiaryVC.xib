@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CDPublishDiaryVC">
+            <connections>
+                <outlet property="collectionView" destination="Fec-Th-csK" id="hO2-2K-HNb"/>
+                <outlet property="navigationView" destination="4Or-eb-gPJ" id="YWc-pS-ZfT"/>
+                <outlet property="textField" destination="ObA-pA-WHP" id="ugm-mj-uiH"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Or-eb-gPJ">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hdj-oE-kmZ">
+                            <rect key="frame" x="8" y="20" width="88" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="88" id="5UT-ZJ-9vn"/>
+                            </constraints>
+                            <state key="normal" image="my_navigation_back"/>
+                            <connections>
+                                <action selector="back:" destination="-1" eventType="touchUpInside" id="0zH-45-Q7f"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="发日记" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ndO-T3-T4g">
+                            <rect key="frame" x="160.5" y="32" width="55.5" height="21.5"/>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DA2-hQ-VF4">
+                            <rect key="frame" x="295" y="26" width="80" height="34"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="80" id="55R-FJ-0en"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                            <state key="normal" title="发表">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="publish:" destination="-1" eventType="touchUpInside" id="3d4-RK-rOb"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="Hdj-oE-kmZ" firstAttribute="leading" secondItem="4Or-eb-gPJ" secondAttribute="leading" constant="8" id="FIk-f6-ibb"/>
+                        <constraint firstItem="ndO-T3-T4g" firstAttribute="centerY" secondItem="Hdj-oE-kmZ" secondAttribute="centerY" id="Hw0-7z-HTI"/>
+                        <constraint firstAttribute="height" constant="64" id="Kkg-wo-kqN"/>
+                        <constraint firstItem="DA2-hQ-VF4" firstAttribute="centerY" secondItem="ndO-T3-T4g" secondAttribute="centerY" id="M1n-gz-f5x"/>
+                        <constraint firstItem="Hdj-oE-kmZ" firstAttribute="top" secondItem="4Or-eb-gPJ" secondAttribute="top" constant="20" id="Owj-8l-8A9"/>
+                        <constraint firstAttribute="bottom" secondItem="Hdj-oE-kmZ" secondAttribute="bottom" id="f4a-Ho-6eb"/>
+                        <constraint firstItem="ndO-T3-T4g" firstAttribute="centerX" secondItem="4Or-eb-gPJ" secondAttribute="centerX" id="fLI-Co-9ic"/>
+                        <constraint firstAttribute="trailing" secondItem="DA2-hQ-VF4" secondAttribute="trailing" id="tOf-W6-p4W"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ObA-pA-WHP" customClass="LJTextField">
+                    <rect key="frame" x="8" y="72" width="359" height="120"/>
+                    <color key="backgroundColor" red="0.97793879530000005" green="0.42763871069999998" blue="0.3058828891" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="120" id="mWL-rH-qjd"/>
+                    </constraints>
+                </view>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Fec-Th-csK">
+                    <rect key="frame" x="8" y="200" width="359" height="467"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="itH-Nv-LRl">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="4Or-eb-gPJ" secondAttribute="trailing" id="478-ff-kmR"/>
+                <constraint firstAttribute="trailing" secondItem="ObA-pA-WHP" secondAttribute="trailing" constant="8" id="5AB-FD-TWK"/>
+                <constraint firstItem="4Or-eb-gPJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="7cq-cb-4Dd"/>
+                <constraint firstItem="Fec-Th-csK" firstAttribute="top" secondItem="ObA-pA-WHP" secondAttribute="bottom" constant="8" id="G6u-QZ-QyF"/>
+                <constraint firstItem="Fec-Th-csK" firstAttribute="leading" secondItem="ObA-pA-WHP" secondAttribute="leading" id="dlB-pN-4Cy"/>
+                <constraint firstAttribute="bottom" secondItem="Fec-Th-csK" secondAttribute="bottom" id="hI5-ZH-dU0"/>
+                <constraint firstItem="4Or-eb-gPJ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="nJe-Nq-7U5"/>
+                <constraint firstItem="Fec-Th-csK" firstAttribute="trailing" secondItem="ObA-pA-WHP" secondAttribute="trailing" id="pBL-RW-48d"/>
+                <constraint firstItem="ObA-pA-WHP" firstAttribute="top" secondItem="4Or-eb-gPJ" secondAttribute="bottom" constant="8" id="qAP-1L-zjT"/>
+                <constraint firstItem="ObA-pA-WHP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="yFs-TT-QAP"/>
+            </constraints>
+        </view>
+    </objects>
+    <resources>
+        <image name="my_navigation_back" width="28" height="28"/>
+    </resources>
+</document>

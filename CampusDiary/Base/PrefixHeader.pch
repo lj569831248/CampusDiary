@@ -1,0 +1,86 @@
+//
+//  PrefixHeader.pch
+//  Muslim
+//
+//  Created by Jon on 16/8/18.
+//  Copyright © 2016年 Droi. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#pragma makr Header
+#import "UITableView+Base.h"
+#import "UICollectionView+Base.h"
+#import "UICollectionViewCell+Base.h"
+#import "UITableViewCell+Base.h"
+#import "UINavigationController+Base.h"
+#import "UIViewController+Base.h"
+#import "UIView+Base.h"
+#import "NSDictionary+Base.h"
+#import "DB.h"
+#import "HUD.h"
+#import "UIImage+Base.h"
+#pragma mark Notification
+
+
+#pragma mark FontSize
+
+
+#pragma mark Tool
+
+#ifdef DEBUG
+#define DLog(format, ...) printf("\n[%s] %s [第%d行] %s\n", __TIME__, __FUNCTION__, __LINE__, [[NSString stringWithFormat:format, ## __VA_ARGS__] UTF8String]);
+
+#else
+#define DLog(format, ...)
+#define NSLog(format, ...)
+#endif
+
+
+#define IOS_VERSION [[UIDevice currentDevice].systemVersion floatValue]
+//将宏的参数字符串化，C 函数 strchr 返回字符串中第一个 '.' 字符的位置
+#define Keypath(keypath) (strchr(#keypath, '.') + 1)
+#define kScreenWidth [[UIScreen mainScreen] bounds].size.width
+#define kScreenHeight [[UIScreen mainScreen] bounds].size.height
+#define kNavigationBarHeight  64.0
+#define kTabBarHeight  49.0
+
+#define kRootWindow [[[UIApplication sharedApplication] delegate] window]
+#define kLocalizedString(key) NSLocalizedString(key, nil)
+
+//定义UIImage对象
+#define IMAGE(A) [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:A ofType:nil]]
+#define kImage(A) [UIImage imageNamed:A]
+
+#define kURL(A) [NSURL URLWithString:A]
+#define kFileURL(A) [NSURL fileURLWithPath:A]
+
+
+#pragma mark Color
+
+#define kRandomColor [UIColor colorWithRed:(arc4random()% 255)/255.0 green:(arc4random()%255)/255.0 blue:(arc4random()%255)/255.0 alpha:1]
+
+#define kColorFromHex(s) [UIColor colorWithRed:(((s & 0xFF0000) >> 16))/255.0 green:(((s & 0xFF00) >> 8))/255.0 blue:((s & 0xFF))/255.0 alpha:1.0]
+#define kBaseColor kColorFromHex(0X1296db)
+#define kColorFromHexA(s, a) [UIColor colorWithRed:(((s & 0xFF0000) >> 16))/255.0 green:(((s & 0xFF00) >> 8))/255.0 blue:((s & 0xFF))/255.0 alpha:a]
+#define kColorFromRGBA(r, g, b, a) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:(a)]
+
+
+#pragma mark Safe
+
+#define kSafeBlcok(block,...) if(block){block(__VA_ARGS__);}  //宏定义
+#define kWeakSelf(weakSelf)  __weak __typeof(&*self)weakSelf = self;
+
+
+#pragma mark Notification
+
+#define kUserInfoUpdate @"kUserInfoUpdate"
+#define kUserStateUpdate @"kUserStateUpdate" //用户登录状态改变
+#define kOrderStateUpdate @"kOrderStateUpdate" //订单状态改变
+
+
+#pragma mark Constant
+
+#define kHomeIconPlaceholder @"home_icon_placeholder"
+#endif
