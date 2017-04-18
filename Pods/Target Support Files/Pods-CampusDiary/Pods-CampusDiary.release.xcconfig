@@ -1,8 +1,10 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/DroiAnalyticsSDK" "${PODS_ROOT}/DroiCoreSDK" "${PODS_ROOT}/DroiFeedbackSDK" "${PODS_ROOT}/DroiOAuthSDK" "${PODS_ROOT}/DroiPushSDK" "${PODS_ROOT}/DroiSelfupdateSDK"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public"
-OTHER_LDFLAGS = $(inherited) -ObjC
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/DroiAnalyticsSDK" "${PODS_ROOT}/Headers/Public/DroiCoreSDK" "${PODS_ROOT}/Headers/Public/DroiFeedbackSDK" "${PODS_ROOT}/Headers/Public/DroiOAuthSDK" "${PODS_ROOT}/Headers/Public/DroiPushSDK" "${PODS_ROOT}/Headers/Public/DroiSelfupdateSDK" "${PODS_ROOT}/Headers/Public/FMDB" "${PODS_ROOT}/Headers/Public/MBProgressHUD" "${PODS_ROOT}/Headers/Public/MJRefresh" "${PODS_ROOT}/Headers/Public/Masonry" "${PODS_ROOT}/Headers/Public/SDWebImage"
+LIBRARY_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/FMDB" "$PODS_CONFIGURATION_BUILD_DIR/MBProgressHUD" "$PODS_CONFIGURATION_BUILD_DIR/MJRefresh" "$PODS_CONFIGURATION_BUILD_DIR/Masonry" "$PODS_CONFIGURATION_BUILD_DIR/SDWebImage"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/DroiAnalyticsSDK" -isystem "${PODS_ROOT}/Headers/Public/DroiCoreSDK" -isystem "${PODS_ROOT}/Headers/Public/DroiFeedbackSDK" -isystem "${PODS_ROOT}/Headers/Public/DroiOAuthSDK" -isystem "${PODS_ROOT}/Headers/Public/DroiPushSDK" -isystem "${PODS_ROOT}/Headers/Public/DroiSelfupdateSDK" -isystem "${PODS_ROOT}/Headers/Public/FMDB" -isystem "${PODS_ROOT}/Headers/Public/MBProgressHUD" -isystem "${PODS_ROOT}/Headers/Public/MJRefresh" -isystem "${PODS_ROOT}/Headers/Public/Masonry" -isystem "${PODS_ROOT}/Headers/Public/SDWebImage"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"FMDB" -l"MBProgressHUD" -l"MJRefresh" -l"Masonry" -l"SDWebImage" -l"objc" -l"sqlite3" -l"z" -framework "CFNetwork" -framework "CoreGraphics" -framework "CoreTelephony" -framework "DroiAnalytics" -framework "DroiCoreSDK" -framework "DroiFeedback" -framework "DroiOAuth" -framework "DroiPush" -framework "DroiSelfupdate" -framework "Foundation" -framework "ImageIO" -framework "JavaScriptCore" -framework "QuartzCore" -framework "SystemConfiguration" -framework "UIKit"
 PODS_BUILD_DIR = $BUILD_DIR
 PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_ROOT = ${SRCROOT}/Pods

@@ -44,7 +44,7 @@
 }
 
 - (void)requestUserData{
-    User *currentUser = [User getCurrentUser];
+    User *currentUser = [User getCurrentUserByUserClass:[User class]];
     if (currentUser.isLoggedIn && (!currentUser.isAnonymous)) {
         self.userNickNameLabel.text = currentUser.displayName;
         NSURL *iconUrl = currentUser.headIcon.getUrl;
@@ -52,9 +52,8 @@
     }
     else {
         self.userNickNameLabel.text = @"未登录";
-        [self.userIconButton setBackgroundImage:[UIImage imageNamed:@"my_userIcon"] forState:UIControlStateNormal];
+        [self.userIconButton sd_setImageWithURL:nil forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"my_userIcon"]];
     }
-    
 }
 
 - (NSMutableArray *)commentDataSource{
@@ -375,6 +374,7 @@
     [self.view addSubview:textView];
     textView.EwenTextViewBlock = block;
 }
+
 - (void)showCommentChooser:(UIButton *)button{
     UIWindow *window=[UIApplication sharedApplication].keyWindow;
     UIView *backgroundView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];

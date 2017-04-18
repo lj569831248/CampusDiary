@@ -5,7 +5,7 @@
 //  Created by Jon on 2017/2/21.
 //  Copyright © 2017年 droi. All rights reserved.
 //
-
+#import <UIImageView+WebCache.h>
 #import "CDHomeTableHeaderView.h"
 #import "CDPhotoCell.h"
 #import "NSDate+Base.h"
@@ -35,7 +35,6 @@
 }
 
 - (IBAction)comment:(UIButton *)sender {
-    
     if (self.delegate && [self.delegate respondsToSelector:@selector(tableHeaderView:didCheckCommentButton:)]) {
         [self.delegate tableHeaderView:self didCheckCommentButton:sender];
     }
@@ -57,16 +56,8 @@
     self.contentLabel.text = _model.content;
     self.userNickNameLabel.text = _model.user.displayName;
     self.createTimeLabel.text =[_model.creationTime getLocalDateString];
-//    if (_model.photos.count == 0 ) {
-//        self.flowLayout.itemSize = CGSizeMake(0, 0);
-//    }else{
-        self.flowLayout.itemSize = [CDHomeTableHeaderView colletionItmeSize];
-//    }
-    [self.iconImageView setImage:[UIImage new]];
-    [_model.user.headIcon getInBackground:^(NSData *data, DroiError *error) {
-        UIImage *image = [UIImage imageWithData:data];
-        [self.iconImageView setImage:image];
-    }];
+    self.flowLayout.itemSize = [CDHomeTableHeaderView colletionItmeSize];
+    [self.iconImageView sd_setImageWithURL:_model.user.headIcon.getUrl placeholderImage:kImage(@"my_userIcon")];
     [self.collectionView reloadData];
 }
 
@@ -95,7 +86,6 @@
 }
 
 + (CGSize)colletionItmeSize{
-    
     CGFloat colletcViewWidth = kScreenWidth - 8.0 - 40.0 - 8.0 - 8.0;
     CGFloat width = (colletcViewWidth - 8.0 * 2) / 3;
     return CGSizeMake(width, width);

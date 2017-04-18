@@ -13,9 +13,9 @@
 #import "User.h"
 #import "PhotoInfo.h"
 #import "CommentItem.h"
-@interface DroiLogInternal : NSObject
-+ (void) setLevelPrint : (NSInteger) level;
-@end
+//@interface DroiLogInternal : NSObject
+//+ (void) setLevelPrint : (NSInteger) level;
+//@end
 @interface AppDelegate ()
 
 @end
@@ -45,7 +45,7 @@
 }
 
 - (void)setupBaaSSDK{
-    [DroiLogInternal setLevelPrint:4];
+//    [DroiLogInternal setLevelPrint:4];
     [DroiCore  initializeCore];
     [DroiObject registerCustomClass:[User class]];
     [DroiObject registerCustomClass:[PhotoInfo class]];

@@ -6,6 +6,7 @@
 //  Copyright © 2017年 droi. All rights reserved.
 //
 
+#import <UIImageView+WebCache.h>
 #import "CDMyIconCell.h"
 
 @interface CDMyIconCell ()
@@ -26,10 +27,7 @@
 
 - (void)setUser:(User *)user{
     _user = user;
-    [self.iconImageView setImage:kImage(@"my_userIcon")];
-    [_user.headIcon getInBackground:^(NSData *data, DroiError *error) {
-        self.iconImageView.image = [UIImage imageWithData:data];
-    }];
+    [self.iconImageView sd_setImageWithURL:user.headIcon.getUrl placeholderImage:kImage(@"my_userIcon")];
     self.userIdLabel.text =user.UserId;
 }
 @end

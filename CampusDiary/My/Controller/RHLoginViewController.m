@@ -1,4 +1,4 @@
-//
+ //
 //  RHLoginViewController.m
 //  ruhang
 //
@@ -80,7 +80,9 @@
     NSString *userName = self.userNameTF.text;
     NSString *password = self.passwordTF.text;
     [HUD show];
-    User *user = [[User alloc] init];
+    //因为使用了继承 DroiUser 的 User 所以注册的话要用这个方法
+    User *user = [User getCurrentUserByUserClass:[User class]];
+    NSLog(@"%@  %d",user,user.isLoggedIn);
     user.UserId = userName;
     user.Password = password;
     [user signUpInBackground:^(BOOL result, DroiError *error) {
@@ -93,10 +95,13 @@
         }
         else{
             resultStr = [NSString stringWithFormat:@"注册失败：%@",error.message];
+            NSLog(@"%@  %d",user,user.isLoggedIn);
         }
+        NSLog(@"%@",resultStr);
         [HUD showText:kLocalizedString(resultStr)];
         [HUD dismiss];
     }];
+    
 }
 
 //用户登录

@@ -1,0 +1,6 @@
+framework module DroiAnalytics {
+  umbrella header "DroiAnalytics.h"
+
+  export *
+  module * { export * }
+}

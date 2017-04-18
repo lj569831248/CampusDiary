@@ -148,15 +148,15 @@
 
 
 - (IBAction)publish:(UIButton *)sender {
-    
+    //配置权限
     DroiPermission *permisson = [[DroiPermission alloc] init];
     [permisson setPublicReadPermission:YES];
     [permisson setPublicWritePermission:NO];
-    
     CircleItem *item = [[CircleItem alloc] init];
     item.permission = permisson;
     item.user = [User getCurrentUser];
     item.content = self.textField.text;
+    
     NSMutableArray *photos = [[NSMutableArray alloc] init];
     for (CDPhotoModel *model in self.dataSource) {
         if (model.image) {

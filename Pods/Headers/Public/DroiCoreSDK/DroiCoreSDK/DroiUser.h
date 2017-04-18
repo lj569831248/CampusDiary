@@ -1,0 +1,1 @@
+../../../../DroiCoreSDK/DroiCoreSDK.framework/Headers/DroiUser.h

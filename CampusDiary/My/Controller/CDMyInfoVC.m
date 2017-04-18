@@ -33,7 +33,7 @@
 
 - (User *)user{
     if (_user == nil) {
-        _user = [User getCurrentUser];
+        _user = [User getCurrentUserByUserClass:[User class]];
     }
     return _user;
 }
@@ -189,8 +189,7 @@
 }
 
 //压缩图片
-- (UIImage*)imageWithImageSimple:(UIImage*)image scaledToSize:(CGSize)newSize
-{
+- (UIImage*)imageWithImageSimple:(UIImage*)image scaledToSize:(CGSize)newSize{
     // Create a graphics image context
     UIGraphicsBeginImageContext(newSize);
     [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
@@ -216,7 +215,6 @@
         [picker dismissViewControllerAnimated:YES completion:^{
             self.user.headIcon = [DroiFile fileWithData:data];
             [self updateCurrentUser];
-            [self.tableView reloadData];
         }];
     }
 }
@@ -231,6 +229,7 @@
             [HUD showText:kLocalizedString(@"保存失败")];
         }
         [HUD dismissAfterDelay:1.5f];
+        [self.tableView reloadData];
     }];
 }
 

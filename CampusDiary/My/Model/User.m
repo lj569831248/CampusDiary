@@ -11,7 +11,7 @@
 @implementation User
 
 + (BOOL)currentUserIsLogin{
-    User *currentUser = [User getCurrentUser];
+    User *currentUser = [User getCurrentUserByUserClass:[User class]];
     return (currentUser.isLoggedIn && (!currentUser.isAnonymous));
 }
 

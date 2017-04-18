@@ -31,10 +31,6 @@
     }
     _photo = photo;
     [self.imageView setImage:[UIImage new]];
-    [_photo.icon getInBackground:^(NSData *data, DroiError *error) {
-        UIImage *image = [UIImage imageWithData:data];
-        [self.imageView setImage:image];
-    }];
-    
+    [self.imageView sd_setImageWithURL:_photo.icon.getUrl placeholderImage:kImage(@"home_placeholder")];
 }
 @end

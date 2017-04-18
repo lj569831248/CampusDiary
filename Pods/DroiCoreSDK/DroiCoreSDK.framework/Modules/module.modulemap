@@ -1,0 +1,6 @@
+framework module DroiCoreSDK {
+  umbrella header "DroiCoreSDK.h"
+
+  export *
+  module * { export * }
+}

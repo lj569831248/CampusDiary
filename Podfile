@@ -17,7 +17,7 @@ pod 'DroiOAuthSDK'
 pod 'DroiSelfupdateSDK'
 pod 'DroiCoreSDK'
 post_install do |installer|
-    require './Pods/DroiCoreSDK/scripts/postInstall.rb'
-    DroiCoreParser.installParser()
+require './Pods/DroiCoreSDK/scripts/postInstall.rb'
+DroiCoreParser.installParser()
 end
 end

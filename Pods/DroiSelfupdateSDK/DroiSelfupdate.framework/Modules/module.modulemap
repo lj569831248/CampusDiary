@@ -1,0 +1,6 @@
+framework module DroiSelfupdate {
+  umbrella header "DroiSelfupdate.h"
+
+  export *
+  module * { export * }
+}

@@ -1,3 +1,51 @@
-PODFILE CHECKSUM: 750d6de0eaf6b447a226ab7c96f1808364cbfbc1
+PODS:
+  - DroiAnalyticsSDK (0.0.5):
+    - DroiCoreSDK
+  - DroiCoreSDK (1.0.2153)
+  - DroiFeedbackSDK (0.1.8):
+    - DroiCoreSDK
+  - DroiOAuthSDK (0.0.9):
+    - DroiCoreSDK
+  - DroiPushSDK (0.1.0):
+    - DroiCoreSDK
+  - DroiSelfupdateSDK (0.0.3):
+    - DroiCoreSDK
+  - FMDB (2.6.2):
+    - FMDB/standard (= 2.6.2)
+  - FMDB/standard (2.6.2)
+  - Masonry (1.0.2)
+  - MBProgressHUD (1.0.0)
+  - MJRefresh (3.1.12)
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
+
+DEPENDENCIES:
+  - DroiAnalyticsSDK
+  - DroiCoreSDK
+  - DroiFeedbackSDK
+  - DroiOAuthSDK
+  - DroiPushSDK
+  - DroiSelfupdateSDK
+  - FMDB
+  - Masonry
+  - MBProgressHUD
+  - MJRefresh
+  - SDWebImage
+
+SPEC CHECKSUMS:
+  DroiAnalyticsSDK: d9f891a72621b8927666b1ccbf5f8ec9ad5310a8
+  DroiCoreSDK: 29c8a10588ba39993ec2a99d85cb83b19d7dc37d
+  DroiFeedbackSDK: 12ac2c7a9999d924b8f1c3331913321815494e2d
+  DroiOAuthSDK: dd251a722ae84e92de5c6cae7aaecc6d35dae762
+  DroiPushSDK: 8354ae90b71b56ca05681009e1b670fde4d7f82a
+  DroiSelfupdateSDK: c914cfda310bddb73b5b965ec7033eabfdb5f9c5
+  FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
+  Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
+  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
+  MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
+  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+
+PODFILE CHECKSUM: 4d1a377269a4c6ae177da323be5e6efc3b5697f1
 
 COCOAPODS: 1.1.1

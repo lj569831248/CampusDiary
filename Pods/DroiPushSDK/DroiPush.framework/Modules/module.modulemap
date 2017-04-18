@@ -1,0 +1,6 @@
+framework module DroiPush {
+  umbrella header "DroiPush.h"
+
+  export *
+  module * { export * }
+}
