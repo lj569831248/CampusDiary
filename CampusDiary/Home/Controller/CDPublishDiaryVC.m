@@ -11,7 +11,6 @@
 #import "CDPhotoCell.h"
 #import "User.h"
 #import "CircleItem.h"
-#import "PhotoInfo.h"
 
 @interface CDPublishDiaryVC ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet LJTextField *textField;
@@ -156,14 +155,13 @@
     item.permission = permisson;
     item.user = [User getCurrentUser];
     item.content = self.textField.text;
-    
     NSMutableArray *photos = [[NSMutableArray alloc] init];
     for (CDPhotoModel *model in self.dataSource) {
         if (model.image) {
-            PhotoInfo *photo = [[PhotoInfo alloc] init];
             NSData *imageData = UIImageJPEGRepresentation(model.image, 0.2);
-            photo.icon = [DroiFile fileWithData:imageData];
-            //因为是数组需要在外层使用 DroiReferenceObject 包装一下
+             DroiFile *photo= [DroiFile fileWithData:imageData];
+//            [photos addObject:photo];
+//            因为是数组需要在外层使用 DroiReferenceObject 包装一下
             DroiReferenceObject *ref = [[DroiReferenceObject alloc] init];
             [ref setDroiObject:photo];
             [photos addObject:ref];

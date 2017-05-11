@@ -19,10 +19,17 @@
 		FC07AD701E6413F700A22415 /* RHAboutVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC07AD6D1E6413F700A22415 /* RHAboutVC.xib */; };
 		FC1FB27C1E5BEAED003BFFD1 /* CircleItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FC1FB27B1E5BEAED003BFFD1 /* CircleItem.m */; };
 		FC1FB27F1E5BEFDE003BFFD1 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = FC1FB27E1E5BEFDE003BFFD1 /* User.m */; };
-		FC1FB2821E5BF0D4003BFFD1 /* PhotoInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FC1FB2811E5BF0D4003BFFD1 /* PhotoInfo.m */; };
 		FC1FB28A1E5C17A4003BFFD1 /* CDHomeTableHeaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = FC1FB2871E5C17A4003BFFD1 /* CDHomeTableHeaderView.h */; };
 		FC1FB28B1E5C17A4003BFFD1 /* CDHomeTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = FC1FB2881E5C17A4003BFFD1 /* CDHomeTableHeaderView.m */; };
 		FC1FB28C1E5C17A4003BFFD1 /* CDHomeTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC1FB2891E5C17A4003BFFD1 /* CDHomeTableHeaderView.xib */; };
+		FC2147A81EC2ED55008FD339 /* CircleResult.h in Headers */ = {isa = PBXBuildFile; fileRef = FC2147A61EC2ED55008FD339 /* CircleResult.h */; };
+		FC2147A91EC2ED55008FD339 /* CircleResult.m in Sources */ = {isa = PBXBuildFile; fileRef = FC2147A71EC2ED55008FD339 /* CircleResult.m */; };
+		FC2147AC1EC2F022008FD339 /* FavorItem.h in Headers */ = {isa = PBXBuildFile; fileRef = FC2147AA1EC2F022008FD339 /* FavorItem.h */; };
+		FC2147AD1EC2F022008FD339 /* FavorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FC2147AB1EC2F022008FD339 /* FavorItem.m */; };
+		FC2147B01EC2F1AB008FD339 /* CircleParameter.h in Headers */ = {isa = PBXBuildFile; fileRef = FC2147AE1EC2F1AB008FD339 /* CircleParameter.h */; };
+		FC2147B11EC2F1AB008FD339 /* CircleParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = FC2147AF1EC2F1AB008FD339 /* CircleParameter.m */; };
+		FC2147B41EC2F1D6008FD339 /* CircleDeleteParameter.h in Headers */ = {isa = PBXBuildFile; fileRef = FC2147B21EC2F1D6008FD339 /* CircleDeleteParameter.h */; };
+		FC2147B51EC2F1D6008FD339 /* CircleDeleteParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = FC2147B31EC2F1D6008FD339 /* CircleDeleteParameter.m */; };
 		FC243C6F1E53F3BB00DD639D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FC243C6E1E53F3BB00DD639D /* main.m */; };
 		FC243C721E53F3BB00DD639D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FC243C711E53F3BB00DD639D /* AppDelegate.m */; };
 		FC243C7A1E53F3BB00DD639D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC243C791E53F3BB00DD639D /* Assets.xcassets */; };
@@ -113,11 +120,17 @@
 		FC1FB27B1E5BEAED003BFFD1 /* CircleItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleItem.m; sourceTree = "<group>"; };
 		FC1FB27D1E5BEFDE003BFFD1 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		FC1FB27E1E5BEFDE003BFFD1 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
-		FC1FB2801E5BF0D4003BFFD1 /* PhotoInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoInfo.h; sourceTree = "<group>"; };
-		FC1FB2811E5BF0D4003BFFD1 /* PhotoInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoInfo.m; sourceTree = "<group>"; };
 		FC1FB2871E5C17A4003BFFD1 /* CDHomeTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDHomeTableHeaderView.h; sourceTree = "<group>"; };
 		FC1FB2881E5C17A4003BFFD1 /* CDHomeTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDHomeTableHeaderView.m; sourceTree = "<group>"; };
 		FC1FB2891E5C17A4003BFFD1 /* CDHomeTableHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CDHomeTableHeaderView.xib; sourceTree = "<group>"; };
+		FC2147A61EC2ED55008FD339 /* CircleResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleResult.h; sourceTree = "<group>"; };
+		FC2147A71EC2ED55008FD339 /* CircleResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleResult.m; sourceTree = "<group>"; };
+		FC2147AA1EC2F022008FD339 /* FavorItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavorItem.h; sourceTree = "<group>"; };
+		FC2147AB1EC2F022008FD339 /* FavorItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavorItem.m; sourceTree = "<group>"; };
+		FC2147AE1EC2F1AB008FD339 /* CircleParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleParameter.h; sourceTree = "<group>"; };
+		FC2147AF1EC2F1AB008FD339 /* CircleParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleParameter.m; sourceTree = "<group>"; };
+		FC2147B21EC2F1D6008FD339 /* CircleDeleteParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleDeleteParameter.h; sourceTree = "<group>"; };
+		FC2147B31EC2F1D6008FD339 /* CircleDeleteParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleDeleteParameter.m; sourceTree = "<group>"; };
 		FC243C6A1E53F3BB00DD639D /* CampusDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CampusDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC243C6E1E53F3BB00DD639D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FC243C701E53F3BB00DD639D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -344,10 +357,16 @@
 				FCB8A4B51E56D28F0046B978 /* CDPhotoModel.m */,
 				FC1FB27A1E5BEAED003BFFD1 /* CircleItem.h */,
 				FC1FB27B1E5BEAED003BFFD1 /* CircleItem.m */,
-				FC1FB2801E5BF0D4003BFFD1 /* PhotoInfo.h */,
-				FC1FB2811E5BF0D4003BFFD1 /* PhotoInfo.m */,
 				FC31BCF51E5DBB25005FEA99 /* CommentItem.h */,
 				FC31BCF61E5DBB25005FEA99 /* CommentItem.m */,
+				FC2147A61EC2ED55008FD339 /* CircleResult.h */,
+				FC2147A71EC2ED55008FD339 /* CircleResult.m */,
+				FC2147AA1EC2F022008FD339 /* FavorItem.h */,
+				FC2147AB1EC2F022008FD339 /* FavorItem.m */,
+				FC2147AE1EC2F1AB008FD339 /* CircleParameter.h */,
+				FC2147AF1EC2F1AB008FD339 /* CircleParameter.m */,
+				FC2147B21EC2F1D6008FD339 /* CircleDeleteParameter.h */,
+				FC2147B31EC2F1D6008FD339 /* CircleDeleteParameter.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -535,16 +554,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				FC9FDE2E1E6176F4007DE95D /* CDHomeFooterView.h in Headers */,
+				FC2147AC1EC2F022008FD339 /* FavorItem.h in Headers */,
 				FC4994311E600EA900803031 /* RHLoginViewController.h in Headers */,
 				4BBEE2FE6E48655F17A5CCC8 /* DroiBaaS.h in Headers */,
 				FC07AD681E640D2500A22415 /* CDMyInfoVC.h in Headers */,
 				FCA517B81E652BF000ED90F7 /* CDMyDiaryVC.h in Headers */,
 				FCA517C41E65540900ED90F7 /* CDMyInfoCell.h in Headers */,
+				FC2147B41EC2F1D6008FD339 /* CircleDeleteParameter.h in Headers */,
 				FCA517BE1E65514500ED90F7 /* CDMyIconCell.h in Headers */,
 				FC31BCF71E5DBB25005FEA99 /* CommentItem.h in Headers */,
 				FC3E534A1E6807E80099EE85 /* EwenTextView.h in Headers */,
+				FC2147B01EC2F1AB008FD339 /* CircleParameter.h in Headers */,
 				FC1FB28A1E5C17A4003BFFD1 /* CDHomeTableHeaderView.h in Headers */,
 				FC92BF851E5C467800A1E58F /* CDHomeTableViewCell.h in Headers */,
+				FC2147A81EC2ED55008FD339 /* CircleResult.h in Headers */,
 				FCA517B21E652A6200ED90F7 /* CDPrivacyPolicyVC.h in Headers */,
 				FC07AD6E1E6413F700A22415 /* RHAboutVC.h in Headers */,
 			);
@@ -714,15 +737,17 @@
 				FC243CCD1E53FEBE00DD639D /* UINavigationController+Base.m in Sources */,
 				FC243CC71E53FEBE00DD639D /* UICollectionView+Base.m in Sources */,
 				FCB8A4B61E56D28F0046B978 /* CDPhotoModel.m in Sources */,
-				FC1FB2821E5BF0D4003BFFD1 /* PhotoInfo.m in Sources */,
 				FC243CC41E53FEBE00DD639D /* NSObject+Base.m in Sources */,
 				FC243C721E53F3BB00DD639D /* AppDelegate.m in Sources */,
 				FCE319421E55A1DB00DFFAD0 /* CDPublishDiaryVC.m in Sources */,
 				FC243CD91E53FF1600DD639D /* CDHomeViewController.m in Sources */,
 				FC243CD31E53FEBE00DD639D /* DB.m in Sources */,
+				FC2147B11EC2F1AB008FD339 /* CircleParameter.m in Sources */,
+				FC2147AD1EC2F022008FD339 /* FavorItem.m in Sources */,
 				FC243CC31E53FEBE00DD639D /* NSDictionary+Base.m in Sources */,
 				FCE319391E557BA200DFFAD0 /* CDMyModel.m in Sources */,
 				FC243CBF1E53FEBE00DD639D /* MyBaseModel.m in Sources */,
+				FC2147A91EC2ED55008FD339 /* CircleResult.m in Sources */,
 				FC3E534B1E6807E80099EE85 /* EwenTextView.m in Sources */,
 				FC243CC91E53FEBE00DD639D /* UIColor+Base.m in Sources */,
 				FC243CD11E53FEBE00DD639D /* UIViewController+BackButtonHandler.m in Sources */,
@@ -736,6 +761,7 @@
 				FC243CCB1E53FEBE00DD639D /* UILabel+Base.m in Sources */,
 				FC243CC61E53FEBE00DD639D /* UIButton+Base.m in Sources */,
 				FC1FB27F1E5BEFDE003BFFD1 /* User.m in Sources */,
+				FC2147B51EC2F1D6008FD339 /* CircleDeleteParameter.m in Sources */,
 				FC9FDE2F1E6176F4007DE95D /* CDHomeFooterView.m in Sources */,
 				FC243CCE1E53FEBE00DD639D /* UITableView+Base.m in Sources */,
 				FC243CC51E53FEBE00DD639D /* NSString+Base.m in Sources */,

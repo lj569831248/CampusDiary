@@ -8,6 +8,8 @@
 
 #import <DroiCoreSDK/DroiCoreSDK.h>
 #import "User.h"
+#import "CommentItem.h"
+#import "FavorItem.h"
 @interface CircleItem : DroiObject
 
 DroiExpose
@@ -19,4 +21,10 @@ DroiExpose
 DroiReference
 @property (nonatomic , strong) User *user;
 
+DroiExpose
+@property (strong, nonatomic)NSArray <CommentItem *> *commentList;
+DroiExpose
+@property (strong, nonatomic)NSArray <FavorItem *> *favorList;
+DroiExpose
+@property (assign, nonatomic)NSInteger favorCount;
 @end

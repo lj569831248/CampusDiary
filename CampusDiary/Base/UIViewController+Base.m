@@ -61,7 +61,6 @@
     
     SEL pageName = NSSelectorFromString(@"pageName");
     if ([self respondsToSelector:pageName]) {
-        
         NSString *pageNameStr = [self performSelector:pageName];
         NSLog(@"%@ msl_viewWillAppear",pageNameStr);
     }
@@ -72,7 +71,6 @@
     [self msl_viewWillDisappear:animated];
     SEL pageName = NSSelectorFromString(@"pageName");
     if ([self respondsToSelector:pageName]) {
-        
         NSString *pageNameStr = [self performSelector:pageName];
         NSLog(@"%@ msl_viewWillDisappear",pageNameStr);
     }

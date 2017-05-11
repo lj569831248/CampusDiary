@@ -10,10 +10,10 @@
 #import "UINavigationBar+Color.h"
 #import "CDMyViewController.h"
 #import "CDPublishDiaryVC.h"
-#import "CircleItem.h"
 #import "CDHomeTableHeaderView.h"
 #import "CDHomeFooterView.h"
 #import "CDHomeTableViewCell.h"
+#import "CircleItem.h"
 #import "CommentItem.h"
 #import "UILabel+Base.h"
 #import <MJRefresh.h>
@@ -21,12 +21,18 @@
 #import "RHLoginViewController.h"
 #import <objc/runtime.h>
 #import "EwenTextView.h"
+#import "CircleParameter.h"
+#import "CircleResult.h"
 #define kTableHeaderViewHeight 233.0
 #define kPadding 8.0
+
+static NSString *const kAPIKey = @"TfO1XdOKxTaxTitvGd9KZXt7drSXm2axjlDIcsFUJ4h6jVUzLQBwBNqIQe3bL_ZY";
+static NSString *const kGetCircleListAPIPath = @"/api/v2/getCircleList";
+
+
 @interface CDHomeViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,CDHomeTableHeaderViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic , strong) NSMutableArray *dataSource;
-@property (nonatomic , strong) NSMutableArray *commentDataSource;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewTop;
 @property (weak, nonatomic) IBOutlet UIButton *userIconButton;
@@ -56,13 +62,6 @@
     }
 }
 
-- (NSMutableArray *)commentDataSource{
-    if (_commentDataSource == nil) {
-        _commentDataSource = [[NSMutableArray alloc] init];
-    }
-    return _commentDataSource;
-}
-
 - (NSMutableArray *)dataSource{
     if (_dataSource == nil) {
         _dataSource = [[NSMutableArray alloc] init];
@@ -79,6 +78,7 @@
 }
 
 - (void)setupUI{
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -105,7 +105,6 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"CDHomeTableHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:@"CDHomeTableHeaderView"];
     [self.tableView registerCellWithClass:[CDHomeTableViewCell class]];
     [self.tableView registerNib:[UINib nibWithNibName:@"CDHomeFooterView" bundle:nil] forHeaderFooterViewReuseIdentifier:@"CDHomeFooterView"];
-   
     
     //添加手势 点击 collectionView 键盘收起
     UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dismissCommentView)];
@@ -128,42 +127,63 @@
 //    NSLog(@"dismissCommentView");
 }
 
-
+//下拉刷新使用了系统的 refreshControl
 -(void)refreshStateChange:(UIRefreshControl *)control{
     
-    DroiTaskDispatcher* taskDispatcher = [DroiTaskDispatcher getTaskDispatcher:BackgroundThreadDispatcher];
-    [taskDispatcher enqueueTask:^{
-        DroiQuery *query = [[[[[DroiQuery create] queryByClass:[CircleItem class]] orderBy:@"_CreationTime" ascending:NO] limit:5] offset:0];
-        DroiError *error = nil;
-        NSArray *result = [query runQuery:&error];
+    CircleParameter *param = [[CircleParameter alloc] init];
+    param.offset = 0;
+    param.limit = 10;
+    [DroiCloud callRestApiInBackground:kAPIKey apiPath:kGetCircleListAPIPath method:DROIMETHOD_POST parameter:param andCallback:^(id result, DroiError *error) {
+        [control endRefreshing];
         if (error.isOk) {
-            NSMutableArray *commentArray = [[NSMutableArray alloc] init];
-            for (CircleItem *circleItem in result) {
-                DroiQuery *query1 = [[[[DroiQuery create] queryByClass:[CommentItem class]] orderBy:@"_CreationTime" ascending:NO] whereStatement:@"circleId" opType:DroiCondition_EQ arg2:circleItem.objectId];
-                DroiError *error1 = nil;
-                NSArray *result1 = [query1 runQuery:&error1];
-                NSLog(@"result1:%ld",result1.count);
-                if (error1.isOk) {
-                    [commentArray addObject:result1];
-                }else{
-                    CommentItem *item = [[CommentItem alloc] init];
-                    [commentArray addObject:@[item]];
-                    DLog(@"查询评论失败:%@",error.message);
-                }
+           CircleResult *circleResult = (CircleResult *)result;
+            //error.isOK 且 result.code == 0 说明数据获取成功
+            if (circleResult.code == 0) {
+                [self.dataSource removeAllObjects];
+                [self.dataSource addObjectsFromArray:circleResult.data];
+                [self.tableView reloadData];
+            }else{
+                DLog(@"result 结果获取错误：%ld",circleResult.code);
             }
-            [self.commentDataSource removeAllObjects];
-            [self.dataSource removeAllObjects];
-            [self.dataSource addObjectsFromArray:result];
-            [self.commentDataSource addObjectsFromArray:commentArray];
         }else{
-            DLog(@"查询圈子失败:%@",error.message);
+            DLog(@"云代码请求出错 %@",error.message);
         }
-    DroiTaskDispatcher* mainTaskDispatcher = [DroiTaskDispatcher getTaskDispatcher:MainThreadDispatcher];
-        [mainTaskDispatcher enqueueTask:^{
-            [control endRefreshing];
-            [self.tableView reloadData];
-        }];
-    }];
+    } withClassType:CircleResult.class];
+
+    
+//    DroiTaskDispatcher* taskDispatcher = [DroiTaskDispatcher getTaskDispatcher:BackgroundThreadDispatcher];
+//    [taskDispatcher enqueueTask:^{
+//        DroiQuery *query = [[[[[DroiQuery create] queryByClass:[CircleItem class]] orderBy:@"_CreationTime" ascending:NO] limit:5] offset:0];
+//        DroiError *error = nil;
+//        NSArray *result = [query runQuery:&error];
+//        if (error.isOk) {
+//            NSMutableArray *commentArray = [[NSMutableArray alloc] init];
+//            for (CircleItem *circleItem in result) {
+//                DroiQuery *query1 = [[[[DroiQuery create] queryByClass:[CommentItem class]] orderBy:@"_CreationTime" ascending:NO] whereStatement:@"circleId" opType:DroiCondition_EQ arg2:circleItem.objectId];
+//                DroiError *error1 = nil;
+//                NSArray *result1 = [query1 runQuery:&error1];
+//                NSLog(@"result1:%ld",result1.count);
+//                if (error1.isOk) {
+//                    [commentArray addObject:result1];
+//                }else{
+//                    CommentItem *item = [[CommentItem alloc] init];
+//                    [commentArray addObject:@[item]];
+//                    DLog(@"查询评论失败:%@",error.message);
+//                }
+//            }
+//            [self.commentDataSource removeAllObjects];
+//            [self.dataSource removeAllObjects];
+//            [self.dataSource addObjectsFromArray:result];
+//            [self.commentDataSource addObjectsFromArray:commentArray];
+//        }else{
+//            DLog(@"查询圈子失败:%@",error.message);
+//        }
+//    DroiTaskDispatcher* mainTaskDispatcher = [DroiTaskDispatcher getTaskDispatcher:MainThreadDispatcher];
+//        [mainTaskDispatcher enqueueTask:^{
+//            [control endRefreshing];
+//            [self.tableView reloadData];
+//        }];
+//    }];
 }
 
 - (void)reloadNewData{
@@ -172,34 +192,54 @@
 }
 
 - (void)reloadMoreData{
-    DroiTaskDispatcher* taskDispatcher = [DroiTaskDispatcher getTaskDispatcher:BackgroundThreadDispatcher];
-    [taskDispatcher enqueueTask:^{
-        DroiQuery *query = [[[[[DroiQuery create] queryByClass:[CircleItem class]] orderBy:@"_CreationTime" ascending:NO] limit:5] offset:(int)(self.dataSource.count)];
-        DroiError *error = nil;
-        NSArray *result = [query runQuery:&error];
+    
+    CircleParameter *param = [[CircleParameter alloc] init];
+    param.offset = self.dataSource.count;
+    param.limit = 10;
+    [DroiCloud callRestApiInBackground:kAPIKey apiPath:kGetCircleListAPIPath method:DROIMETHOD_POST parameter:param andCallback:^(id result, DroiError *error) {
+         [self.tableView.mj_footer endRefreshing];
         if (error.isOk) {
-            [self.dataSource addObjectsFromArray:result];
-            for (CircleItem *circleItem in result) {
-                DroiQuery *query1 = [[[[DroiQuery create] queryByClass:[CommentItem class]] orderBy:@"_CreationTime" ascending:NO] whereStatement:@"circleId" opType:DroiCondition_EQ arg2:circleItem.objectId];
-                DroiError *error1 = nil;
-                NSArray *result1 = [query1 runQuery:&error1];
-                NSLog(@"result1:%ld",result1.count);
-                if (error1.isOk) {
-                    [self.commentDataSource addObject:result1];
-                }else{
-                    DLog(@"查询评论失败:%@",error.message);
-                }
+            CircleResult *circleResult = (CircleResult *)result;
+            //error.isOK 且 result.code == 0 说明数据获取成功
+            if (circleResult.code == 0) {
+                [self.dataSource addObjectsFromArray:circleResult.data];
+                [self.tableView reloadData];
+            }else{
+                DLog(@"result 结果获取错误：%ld",circleResult.code);
             }
         }else{
-            DLog(@"查询圈子失败:%@",error.message);
+            DLog(@"云代码请求出错 %@",error.message);
         }
-        DroiTaskDispatcher* mainTaskDispatcher = [DroiTaskDispatcher getTaskDispatcher:MainThreadDispatcher];
-        [mainTaskDispatcher enqueueTask:^{
-            [self.tableView.mj_footer endRefreshing];
-            [self.tableView reloadData];
-        }];
-    }];
-    DLog(@"reloadMoreData");
+    } withClassType:CircleResult.class];
+
+//    DroiTaskDispatcher* taskDispatcher = [DroiTaskDispatcher getTaskDispatcher:BackgroundThreadDispatcher];
+//    [taskDispatcher enqueueTask:^{
+//        DroiQuery *query = [[[[[DroiQuery create] queryByClass:[CircleItem class]] orderBy:@"_CreationTime" ascending:NO] limit:5] offset:(int)(self.dataSource.count)];
+//        DroiError *error = nil;
+//        NSArray *result = [query runQuery:&error];
+//        if (error.isOk) {
+//            [self.dataSource addObjectsFromArray:result];
+//            for (CircleItem *circleItem in result) {
+//                DroiQuery *query1 = [[[[DroiQuery create] queryByClass:[CommentItem class]] orderBy:@"_CreationTime" ascending:NO] whereStatement:@"circleId" opType:DroiCondition_EQ arg2:circleItem.objectId];
+//                DroiError *error1 = nil;
+//                NSArray *result1 = [query1 runQuery:&error1];
+//                NSLog(@"result1:%ld",result1.count);
+//                if (error1.isOk) {
+//                    [self.commentDataSource addObject:result1];
+//                }else{
+//                    DLog(@"查询评论失败:%@",error.message);
+//                }
+//            }
+//        }else{
+//            DLog(@"查询圈子失败:%@",error.message);
+//        }
+//        DroiTaskDispatcher* mainTaskDispatcher = [DroiTaskDispatcher getTaskDispatcher:MainThreadDispatcher];
+//        [mainTaskDispatcher enqueueTask:^{
+//            [self.tableView.mj_footer endRefreshing];
+//            [self.tableView reloadData];
+//        }];
+//    }];
+//    DLog(@"reloadMoreData");
 }
 
 
@@ -210,12 +250,13 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return  [self.commentDataSource[section] count];
+    CircleItem *circleItem = self.dataSource[section];
+    return  circleItem.commentList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    CommentItem *model = self.commentDataSource[indexPath.section][indexPath.row];
+    CircleItem *circleItem = self.dataSource[indexPath.section];
+    CommentItem *model = circleItem.commentList[indexPath.row];
     CDHomeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[CDHomeTableViewCell cellReuseIdentifier] forIndexPath:indexPath];
     cell.model = model;
     return cell;
@@ -225,7 +266,8 @@
 #pragma mark delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    CommentItem *model = self.commentDataSource[indexPath.section][indexPath.row];
+    CircleItem *circleItem = self.dataSource[indexPath.section];
+    CommentItem *model = circleItem.commentList[indexPath.row];
     [self showEwenTextView:^(NSString *text) {
         CommentItem *comment = [[CommentItem alloc] init];
         comment.content = text;
@@ -273,7 +315,6 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    
     CircleItem *model = self.dataSource[section];
     CGFloat nickLabelHeight = 15.0;
     CGFloat iconImageWidth = 40.0;
@@ -294,8 +335,6 @@
     CGFloat height = height1 + kPadding + collectionViewHeight + kPadding + 13.5 + kPadding ;
     return height;
 }
-
-
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     CGFloat contentOffsetY = scrollView.contentOffset.y;
@@ -351,7 +390,6 @@
 
 - (IBAction)checkUserIcon:(UIButton *)sender {
     if ([User currentUserIsLogin]) {
-
         CDMyViewController *myVC = [[CDMyViewController alloc] init];
         [self.navigationController pushViewController:myVC animated:YES];
     }else{

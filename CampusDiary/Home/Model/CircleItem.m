@@ -7,10 +7,6 @@
 //
 
 #import "CircleItem.h"
-#import "PhotoInfo.h"
 @implementation CircleItem
-
-
-
 
 @end

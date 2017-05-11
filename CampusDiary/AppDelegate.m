@@ -11,11 +11,10 @@
 #import <DroiCoreSDK/DroiCoreSDK.h>
 #import "CircleItem.h"
 #import "User.h"
-#import "PhotoInfo.h"
 #import "CommentItem.h"
-//@interface DroiLogInternal : NSObject
-//+ (void) setLevelPrint : (NSInteger) level;
-//@end
+#import "CircleParameter.h"
+#import "CircleDeleteParameter.h"
+#import "CircleResult.h"
 @interface AppDelegate ()
 
 @end
@@ -48,10 +47,13 @@
 //    [DroiLogInternal setLevelPrint:4];
     [DroiCore  initializeCore];
     [DroiObject registerCustomClass:[User class]];
-    [DroiObject registerCustomClass:[PhotoInfo class]];
-
+    
     [DroiObject registerCustomClass:[CircleItem class]];
     [DroiObject registerCustomClass:[CommentItem class]];
+    [DroiObject registerCustomClass:[CircleParameter class]];
+    [DroiObject registerCustomClass:[CircleDeleteParameter class]];
+    [DroiObject registerCustomClass:[CircleResult class]];
+
     DroiPermission *permission = [[DroiPermission alloc] init];
     [permission setPublicReadPermission:YES];
     [DroiPermission setDefaultPermission:permission];

@@ -5,6 +5,15 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum : NSInteger {
+    DroiBaaS_LOG_VERBOSE = 2,
+    DroiBaaS_LOG_DEBUG,
+    DroiBaaS_LOG_INFO,
+    DroiBaaS_LOG_WARN,
+    DroiBaaS_LOG_ERROR,
+    DroiBaaS_LOG_DISABLE_ALL_LOGS
+} DroiBaaSLogLevel;
+
 #pragma mark - Droi SDK definitions
 
 /**
@@ -53,5 +62,12 @@
  *  @return Channel name
  */
 + (NSString*) getChannelName;
+
+/**
+ Set DroiBaaS log level to adjust output logs.
+
+ @param level Log level.
+ */
++ (void) setDroiBaaSLogLevel:(DroiBaaSLogLevel) level;
 + (NSDate*) getTimestamp;
 @end

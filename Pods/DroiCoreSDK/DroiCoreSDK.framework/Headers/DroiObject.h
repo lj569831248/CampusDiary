@@ -175,6 +175,27 @@ typedef void(^DroiObjectCallback)(BOOL result, DroiError* error);
  */
 - (BOOL) isReferencedObjectDirty;
 
+#pragma mark - Atomic
+
+/**
+ Add value of field by amount atomically
+
+ @param field Field name
+ @param amount Amount
+ @return DroiError object. Developer should use isOk to check whether this result is OK.
+ */
+- (DroiError*) atomicAdd:(NSString*) field amount:(int) amount;
+
+/**
+ Add value of field by amount atomically in background
+
+ @param field Field name
+ @param amount Amount
+ @param callback The callback object `DroiObjectCallback` is used to receive save result.
+ @return task id
+ */
+- (NSString*) atomicAddInBackground:(NSString*) field amount:(int) amount callback:(DroiObjectCallback) callback;
+
 #pragma mark - Dictionary operations
 /**
  *  Add a key-value pair to DroiObject

@@ -66,8 +66,9 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return self.model.photos.count;
 }
+
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    DroiReferenceObject * photo = self.model.photos[indexPath.item];
+    DroiReferenceObject *photo =(DroiReferenceObject *)self.model.photos[indexPath.item];
     CDPhotoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[CDPhotoCell cellReuseIdentifier] forIndexPath:indexPath];
     cell.photo = photo.droiObject;
     return cell;

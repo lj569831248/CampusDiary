@@ -25,12 +25,11 @@
     _model = model;
     [self.imageView setImage:(_model.image?_model.image:kImage(@"publish_add_photo"))];
 }
-- (void)setPhoto:(PhotoInfo *)photo{
+- (void)setPhoto:(DroiFile *)photo{
     if (_photo == photo) {
         return;
     }
     _photo = photo;
-    [self.imageView setImage:[UIImage new]];
-    [self.imageView sd_setImageWithURL:_photo.icon.getUrl placeholderImage:kImage(@"home_placeholder")];
+    [self.imageView sd_setImageWithURL:_photo.getUrl placeholderImage:kImage(@"home_placeholder")];
 }
 @end

@@ -147,7 +147,7 @@ FOUNDATION_EXPORT NSString* const DroiQuery_DESC;
  *
  *  @return The DroiQuery object
  */
-- (DroiQuery*) queryByName : (NSString*) fromName;
+- (DroiQuery*) queryByName : (NSString*) fromName NS_SWIFT_NAME(query(byName:));
 
 /**
  *  Query data from specific class
@@ -156,7 +156,7 @@ FOUNDATION_EXPORT NSString* const DroiQuery_DESC;
  *
  *  @return The DroiQuery object
  */
-- (DroiQuery*) queryByClass : (Class) clazz;
+- (DroiQuery*) queryByClass : (Class) clazz NS_SWIFT_NAME(query(byClass:));
 
 /**
  *  Delete all data from specific class

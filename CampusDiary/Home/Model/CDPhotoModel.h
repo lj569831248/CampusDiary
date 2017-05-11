@@ -10,5 +10,4 @@
 #import <UIKit/UIKit.h>
 @interface CDPhotoModel : MyBaseModel
 @property (nonatomic , strong) UIImage *image;
-
 @end

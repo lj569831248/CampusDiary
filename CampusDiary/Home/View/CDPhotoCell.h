@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <DroiCoreSDK/DroiCoreSDK.h>
 #import "CDPhotoModel.h"
-#import "PhotoInfo.h"
 @interface CDPhotoCell : UICollectionViewCell
 @property (nonatomic , strong) CDPhotoModel *model;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (nonatomic , strong) PhotoInfo *photo;
+@property (nonatomic , strong) DroiFile *photo;
 
 @end
