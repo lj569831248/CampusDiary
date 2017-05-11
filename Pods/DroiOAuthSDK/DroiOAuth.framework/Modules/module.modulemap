@@ -1,6 +1,0 @@
-framework module DroiOAuth {
-  umbrella header "DroiOAuth.h"
-
-  export *
-  module * { export * }
-}

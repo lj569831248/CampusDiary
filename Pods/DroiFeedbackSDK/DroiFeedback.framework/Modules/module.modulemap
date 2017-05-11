@@ -1,6 +1,0 @@
-framework module DroiFeedback {
-  umbrella header "DroiFeedback.h"
-
-  export *
-  module * { export * }
-}

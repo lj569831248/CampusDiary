@@ -1,2 +1,0 @@
-# DroiOAuthSDK-iOS
-DroiOAuthSDK-iOS

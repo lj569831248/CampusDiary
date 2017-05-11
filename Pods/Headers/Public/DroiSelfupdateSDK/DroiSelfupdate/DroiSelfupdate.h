@@ -1,1 +1,0 @@
-../../../../DroiSelfupdateSDK/DroiSelfupdate.framework/Headers/DroiSelfupdate.h

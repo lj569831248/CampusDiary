@@ -1,2 +1,0 @@
-# DroiSelfupdateSDK-iOS
-DroiSelfupdate SDK

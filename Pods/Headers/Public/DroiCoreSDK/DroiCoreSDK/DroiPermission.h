@@ -1,1 +1,0 @@
-../../../../DroiCoreSDK/DroiCoreSDK.framework/Headers/DroiPermission.h
