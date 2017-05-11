@@ -15,7 +15,7 @@
 DroiExpose
 @property (copy, nonatomic)NSString *content;
 DroiExpose
-@property (copy, nonatomic)NSString *type;
+@property (assign, nonatomic)NSInteger type;
 DroiExpose
 @property (strong, nonatomic)NSArray *photos;
 DroiReference

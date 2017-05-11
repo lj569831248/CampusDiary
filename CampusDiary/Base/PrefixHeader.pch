@@ -21,7 +21,6 @@
 #import "DB.h"
 #import "HUD.h"
 #import "UIImage+Base.h"
-#pragma mark Notification
 
 
 #pragma mark FontSize
@@ -74,12 +73,8 @@
 
 
 #pragma mark Notification
-
-#define kUserInfoUpdate @"kUserInfoUpdate"
-#define kUserStateUpdate @"kUserStateUpdate" //用户登录状态改变
-#define kOrderStateUpdate @"kOrderStateUpdate" //订单状态改变
-
-
+#define KPublishSuccessNotification @"KPublishSuccessNotification"
+#define kUserStateUpdate @"kUserStateUpdate"
 #pragma mark Constant
 
 #define kHomeIconPlaceholder @"home_icon_placeholder"

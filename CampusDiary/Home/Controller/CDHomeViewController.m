@@ -7,6 +7,9 @@
 //
 
 #import "CDHomeViewController.h"
+#import <objc/runtime.h>
+#import <MJRefresh.h>
+#import <UIButton+WebCache.h>
 #import "UINavigationBar+Color.h"
 #import "CDMyViewController.h"
 #import "CDPublishDiaryVC.h"
@@ -16,18 +19,17 @@
 #import "CircleItem.h"
 #import "CommentItem.h"
 #import "UILabel+Base.h"
-#import <MJRefresh.h>
-#import <UIButton+WebCache.h>
 #import "RHLoginViewController.h"
-#import <objc/runtime.h>
 #import "EwenTextView.h"
 #import "CircleParameter.h"
+#import "CircleDeleteParameter.h"
 #import "CircleResult.h"
 #define kTableHeaderViewHeight 233.0
 #define kPadding 8.0
 
 static NSString *const kAPIKey = @"TfO1XdOKxTaxTitvGd9KZXt7drSXm2axjlDIcsFUJ4h6jVUzLQBwBNqIQe3bL_ZY";
 static NSString *const kGetCircleListAPIPath = @"/api/v2/getCircleList";
+static NSString *const kDeleteCircleAPIPath = @"/api/v2/removeCircle";
 
 
 @interface CDHomeViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,CDHomeTableHeaderViewDelegate>
@@ -41,6 +43,10 @@ static NSString *const kGetCircleListAPIPath = @"/api/v2/getCircleList";
 @end
 
 @implementation CDHomeViewController
+
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (void)viewWillAppear:(BOOL)animated{
     CGFloat contentOffsetY = self.tableView.contentOffset.y;
@@ -116,20 +122,45 @@ static NSString *const kGetCircleListAPIPath = @"/api/v2/getCircleList";
     [control addTarget:self action:@selector(refreshStateChange:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:control];
     [control beginRefreshing];
-    [self refreshStateChange:control];
+    [self refreshData:control];
     
     MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter  footerWithRefreshingTarget:self refreshingAction:@selector(reloadMoreData)];
     [footer setTitle:@"" forState:MJRefreshStateIdle];
     footer.refreshingTitleHidden = YES;
     self.tableView.mj_footer = footer;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData:) name:KPublishSuccessNotification object:nil];
 }
 - (void)dismissCommentView{
 //    NSLog(@"dismissCommentView");
 }
 
+- (void)refreshData:(UIRefreshControl *)control{
+    CircleParameter *param = [[CircleParameter alloc] init];
+    param.offset = 0;
+    param.limit = 10;
+    [DroiCloud callRestApiInBackground:kAPIKey apiPath:kGetCircleListAPIPath method:DROIMETHOD_POST parameter:param andCallback:^(id result, DroiError *error) {
+        if (control && [control isKindOfClass:[UIRefreshControl class]]) {
+            [control endRefreshing];
+        }
+        if (error.isOk) {
+            CircleResult *circleResult = (CircleResult *)result;
+            //error.isOK 且 result.code == 0 说明数据获取成功
+            if (circleResult.code == 0) {
+                [self.dataSource removeAllObjects];
+                [self.dataSource addObjectsFromArray:circleResult.data];
+                [self.tableView reloadData];
+            }else{
+                DLog(@"result 结果获取错误：%ld",circleResult.code);
+            }
+        }else{
+            DLog(@"云代码请求出错 %@",error.message);
+        }
+    } withClassType:CircleResult.class];
+
+}
+
 //下拉刷新使用了系统的 refreshControl
 -(void)refreshStateChange:(UIRefreshControl *)control{
-    
     CircleParameter *param = [[CircleParameter alloc] init];
     param.offset = 0;
     param.limit = 10;
@@ -150,40 +181,6 @@ static NSString *const kGetCircleListAPIPath = @"/api/v2/getCircleList";
         }
     } withClassType:CircleResult.class];
 
-    
-//    DroiTaskDispatcher* taskDispatcher = [DroiTaskDispatcher getTaskDispatcher:BackgroundThreadDispatcher];
-//    [taskDispatcher enqueueTask:^{
-//        DroiQuery *query = [[[[[DroiQuery create] queryByClass:[CircleItem class]] orderBy:@"_CreationTime" ascending:NO] limit:5] offset:0];
-//        DroiError *error = nil;
-//        NSArray *result = [query runQuery:&error];
-//        if (error.isOk) {
-//            NSMutableArray *commentArray = [[NSMutableArray alloc] init];
-//            for (CircleItem *circleItem in result) {
-//                DroiQuery *query1 = [[[[DroiQuery create] queryByClass:[CommentItem class]] orderBy:@"_CreationTime" ascending:NO] whereStatement:@"circleId" opType:DroiCondition_EQ arg2:circleItem.objectId];
-//                DroiError *error1 = nil;
-//                NSArray *result1 = [query1 runQuery:&error1];
-//                NSLog(@"result1:%ld",result1.count);
-//                if (error1.isOk) {
-//                    [commentArray addObject:result1];
-//                }else{
-//                    CommentItem *item = [[CommentItem alloc] init];
-//                    [commentArray addObject:@[item]];
-//                    DLog(@"查询评论失败:%@",error.message);
-//                }
-//            }
-//            [self.commentDataSource removeAllObjects];
-//            [self.dataSource removeAllObjects];
-//            [self.dataSource addObjectsFromArray:result];
-//            [self.commentDataSource addObjectsFromArray:commentArray];
-//        }else{
-//            DLog(@"查询圈子失败:%@",error.message);
-//        }
-//    DroiTaskDispatcher* mainTaskDispatcher = [DroiTaskDispatcher getTaskDispatcher:MainThreadDispatcher];
-//        [mainTaskDispatcher enqueueTask:^{
-//            [control endRefreshing];
-//            [self.tableView reloadData];
-//        }];
-//    }];
 }
 
 - (void)reloadNewData{
@@ -192,7 +189,6 @@ static NSString *const kGetCircleListAPIPath = @"/api/v2/getCircleList";
 }
 
 - (void)reloadMoreData{
-    
     CircleParameter *param = [[CircleParameter alloc] init];
     param.offset = self.dataSource.count;
     param.limit = 10;
@@ -212,34 +208,6 @@ static NSString *const kGetCircleListAPIPath = @"/api/v2/getCircleList";
         }
     } withClassType:CircleResult.class];
 
-//    DroiTaskDispatcher* taskDispatcher = [DroiTaskDispatcher getTaskDispatcher:BackgroundThreadDispatcher];
-//    [taskDispatcher enqueueTask:^{
-//        DroiQuery *query = [[[[[DroiQuery create] queryByClass:[CircleItem class]] orderBy:@"_CreationTime" ascending:NO] limit:5] offset:(int)(self.dataSource.count)];
-//        DroiError *error = nil;
-//        NSArray *result = [query runQuery:&error];
-//        if (error.isOk) {
-//            [self.dataSource addObjectsFromArray:result];
-//            for (CircleItem *circleItem in result) {
-//                DroiQuery *query1 = [[[[DroiQuery create] queryByClass:[CommentItem class]] orderBy:@"_CreationTime" ascending:NO] whereStatement:@"circleId" opType:DroiCondition_EQ arg2:circleItem.objectId];
-//                DroiError *error1 = nil;
-//                NSArray *result1 = [query1 runQuery:&error1];
-//                NSLog(@"result1:%ld",result1.count);
-//                if (error1.isOk) {
-//                    [self.commentDataSource addObject:result1];
-//                }else{
-//                    DLog(@"查询评论失败:%@",error.message);
-//                }
-//            }
-//        }else{
-//            DLog(@"查询圈子失败:%@",error.message);
-//        }
-//        DroiTaskDispatcher* mainTaskDispatcher = [DroiTaskDispatcher getTaskDispatcher:MainThreadDispatcher];
-//        [mainTaskDispatcher enqueueTask:^{
-//            [self.tableView.mj_footer endRefreshing];
-//            [self.tableView reloadData];
-//        }];
-//    }];
-//    DLog(@"reloadMoreData");
 }
 
 
@@ -266,27 +234,30 @@ static NSString *const kGetCircleListAPIPath = @"/api/v2/getCircleList";
 #pragma mark delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    CircleItem *circleItem = self.dataSource[indexPath.section];
-    CommentItem *model = circleItem.commentList[indexPath.row];
-    [self showEwenTextView:^(NSString *text) {
-        CommentItem *comment = [[CommentItem alloc] init];
-        comment.content = text;
-        User *currentUser = [User getCurrentUser];
-        comment.user = currentUser;
-        comment.circleId = model.circleId;
-        comment.toReplyUser = model.user;
-        [HUD show];
-        [comment saveInBackground:^(BOOL result, DroiError *error) {
-            if (result) {
-                [HUD dismissAfterDelay:0.0];
-            }else{
-                [HUD showText:@"发生错误"];
-                [HUD dismiss];
-                DLog(@"发生错误%@",error.message);
-            }
+    if ([User currentUserIsLogin]) {
+        CircleItem *circleItem = self.dataSource[indexPath.section];
+        CommentItem *model = circleItem.commentList[indexPath.row];
+        [self showEwenTextView:^(NSString *text) {
+            CommentItem *comment = [[CommentItem alloc] init];
+            comment.content = text;
+            User *currentUser = [User getCurrentUser];
+            comment.user = currentUser;
+            comment.circleId = model.circleId;
+            comment.toReplyUser = model.user;
+            [HUD show];
+            [comment saveInBackground:^(BOOL result, DroiError *error) {
+                if (result) {
+                    [HUD dismissAfterDelay:0.0];
+                }else{
+                    [HUD showText:@"发生错误"];
+                    [HUD dismiss];
+                    DLog(@"发生错误%@",error.message);
+                }
+            }];
         }];
-    }];
-
+    }else{
+        [self toLogin];
+    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -312,7 +283,6 @@ static NSString *const kGetCircleListAPIPath = @"/api/v2/getCircleList";
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 20.0;
 }
-
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     CircleItem *model = self.dataSource[section];
@@ -342,35 +312,44 @@ static NSString *const kGetCircleListAPIPath = @"/api/v2/getCircleList";
     [self setNavigationBarWithOffsetY:contentOffsetY];
 }
 
+//点击评论按钮的 delegate 方法
 - (void)tableHeaderView:(CDHomeTableHeaderView *)tableHeaderView didCheckCommentButton:(UIButton *)commentButton{
-    
-    CircleItem *model = tableHeaderView.model;
-    NSLog(@"%@",commentButton);
-    
-    [self showEwenTextView:^(NSString *text) {
-        CommentItem *comment = [[CommentItem alloc] init];
-        comment.content = text;
-        User *currentUser = [User getCurrentUser];
-        comment.user = currentUser;
-        comment.circleId = model.objectId;
-        [HUD show];
-        [comment saveInBackground:^(BOOL result, DroiError *error) {
-            if (result) {
-                [HUD dismissAfterDelay:0.0];
-            }else{
-                [HUD showText:@"发生错误"];
-                [HUD dismiss];
-                DLog(@"发生错误%@",error.message);
-            }
+    if ([User currentUserIsLogin]) {
+        CircleItem *model = tableHeaderView.model;
+        NSLog(@"%@",commentButton);
+        [self showEwenTextView:^(NSString *text) {
+            CommentItem *comment = [[CommentItem alloc] init];
+            comment.content = text;
+            User *currentUser = [User getCurrentUser];
+            comment.user = currentUser;
+            comment.circleId = model.objectId;
+            [HUD show];
+            [comment saveInBackground:^(BOOL result, DroiError *error) {
+                if (result) {
+                    [HUD dismissAfterDelay:0.0];
+                }else{
+                    [HUD showText:@"发生错误"];
+                    [HUD dismiss];
+                    DLog(@"发生错误%@",error.message);
+                }
+            }];
         }];
-    }];
-//    [self showCommentChooser:commentButton];
+    }else{
+        [self toLogin];
+
+    }
+   //    [self showCommentChooser:commentButton];
 //    CGRect frame = [tableHeaderView convertRect:commentButton.frame toView:self.tableView];
 ////    NSLog(@"%@",NSStringFromCGRect(frame));
 //    CGRect newFrame = CGRectMake(frame.origin.x - 100, frame.origin.y, 100, 29.5);
 //    UIView *view = [[UIView alloc] initWithFrame:newFrame];
 //    view.backgroundColor = [UIColor redColor];
 //    [self.tableView addSubview:view];
+}
+
+- (void)tableHeaderView:(CDHomeTableHeaderView *)tableHeaderView didCheckDeleteButton:(UIButton *)deleteButton{
+    CircleItem *model = tableHeaderView.model;
+    [self deleteCircle:model];
 }
 
 - (void)setNavigationBarWithOffsetY:(CGFloat)contentOffsetY{
@@ -393,16 +372,20 @@ static NSString *const kGetCircleListAPIPath = @"/api/v2/getCircleList";
         CDMyViewController *myVC = [[CDMyViewController alloc] init];
         [self.navigationController pushViewController:myVC animated:YES];
     }else{
-        RHLoginViewController *loginVC = [[RHLoginViewController alloc] init];
-        UINavigationController *loginNav = [[UINavigationController alloc] initWithRootViewController:loginVC];
-        [self presentViewController:loginNav animated:YES completion:nil];
+        [self toLogin];
     }
 }
 
 - (void)newDiary{
-    CDPublishDiaryVC *pubDiaryVC = [[CDPublishDiaryVC alloc] init];
-    [self.navigationController pushViewController:pubDiaryVC animated:YES];
-    DLog(@"发日记");
+    if ([User currentUserIsLogin]) {
+        CDPublishDiaryVC *pubDiaryVC = [[CDPublishDiaryVC alloc] init];
+        [self.navigationController pushViewController:pubDiaryVC animated:YES];
+        DLog(@"发日记");
+    }else{
+        RHLoginViewController *loginVC = [[RHLoginViewController alloc] init];
+        UINavigationController *loginNav = [[UINavigationController alloc] initWithRootViewController:loginVC];
+        [self presentViewController:loginNav animated:YES completion:nil];
+    }
 }
 
 
@@ -442,5 +425,35 @@ static NSString *const kGetCircleListAPIPath = @"/api/v2/getCircleList";
     } completion:^(BOOL finished) {
         [backgroundView removeFromSuperview];
     }];
+}
+
+- (void)toLogin{
+    RHLoginViewController *loginVC = [[RHLoginViewController alloc] init];
+    UINavigationController *loginNav = [[UINavigationController alloc] initWithRootViewController:loginVC];
+    [self presentViewController:loginNav animated:YES completion:nil];
+}
+
+- (void)deleteCircle:(CircleItem *)circleItem{
+    [HUD show];
+    CircleDeleteParameter *param = [[CircleDeleteParameter alloc] init];
+    param.circleId = circleItem.objectId;
+    [DroiCloud callRestApiInBackground:kAPIKey apiPath:kDeleteCircleAPIPath method:DROIMETHOD_POST parameter:param andCallback:^(id result, DroiError *error) {
+        if (error.isOk) {
+            CircleResult *circleResult = (CircleResult *)result;
+            //error.isOK 且 result.code == 0 说明数据获取成功
+            if (circleResult.code == 0) {
+                [HUD showText:@"删除成功"];
+                [self.dataSource removeObject:circleItem];
+                [self.tableView reloadData];
+            }else{
+                [HUD showText:@"删除失败"];
+                DLog(@"result 结果获取错误：%ld",circleResult.code);
+            }
+        }else{
+            [HUD showText:@"发送错误"];
+            DLog(@"云代码请求出错 %@",error.message);
+        }
+        [HUD dismiss];
+    } withClassType:CircleResult.class];
 }
 @end

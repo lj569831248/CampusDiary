@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="341"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="341"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="340.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="my_userIcon" translatesAutoresizingMaskIntoConstraints="NO" id="tfn-Nm-wdc">
@@ -72,8 +72,8 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                     </collectionView>
-                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qgy-ED-pms">
-                        <rect key="frame" x="56" y="311" width="256" height="1"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qgy-ED-pms">
+                        <rect key="frame" x="56" y="340.5" width="256" height="0.0"/>
                         <subviews>
                             <view hidden="YES" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cnl-Pu-fr4">
                                 <rect key="frame" x="8" y="-1" width="240" height="1"/>
@@ -108,6 +108,14 @@
                             <constraint firstItem="LSU-h4-VWp" firstAttribute="top" secondItem="qgy-ED-pms" secondAttribute="top" constant="4" id="yGC-CA-aYs"/>
                         </constraints>
                     </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xKl-I5-sLt">
+                        <rect key="frame" x="273" y="6" width="31" height="28"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <state key="normal" title="删 除"/>
+                        <connections>
+                            <action selector="deleteCircle:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="1P9-4X-zQu"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
@@ -119,6 +127,7 @@
                     <constraint firstAttribute="bottom" secondItem="qgy-ED-pms" secondAttribute="bottom" id="G7q-ga-aQi"/>
                     <constraint firstItem="8pF-zz-3ti" firstAttribute="leading" secondItem="HZ6-lU-wHo" secondAttribute="leading" id="Hlk-Wl-0eB"/>
                     <constraint firstItem="6Km-a0-sm8" firstAttribute="leading" secondItem="HZ6-lU-wHo" secondAttribute="leading" id="PJq-hC-6j9"/>
+                    <constraint firstItem="xKl-I5-sLt" firstAttribute="centerY" secondItem="tfn-Nm-wdc" secondAttribute="centerY" id="Tob-T4-CKQ"/>
                     <constraint firstItem="r0i-3T-cOS" firstAttribute="top" secondItem="tfn-Nm-wdc" secondAttribute="top" id="VjY-Tp-H3Z"/>
                     <constraint firstAttribute="trailing" secondItem="HZ6-lU-wHo" secondAttribute="trailing" constant="8" id="ZtX-Lt-abT"/>
                     <constraint firstItem="tfn-Nm-wdc" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="bq1-ZE-1kD"/>
@@ -128,6 +137,7 @@
                     <constraint firstItem="8pF-zz-3ti" firstAttribute="trailing" secondItem="HZ6-lU-wHo" secondAttribute="trailing" id="l9U-By-oOa"/>
                     <constraint firstAttribute="trailing" secondItem="Tpy-Zo-wOL" secondAttribute="trailing" id="lqI-wi-Jbt"/>
                     <constraint firstItem="qgy-ED-pms" firstAttribute="trailing" secondItem="8pF-zz-3ti" secondAttribute="trailing" id="mBt-Sl-dai"/>
+                    <constraint firstAttribute="trailing" secondItem="xKl-I5-sLt" secondAttribute="trailing" constant="16" id="ueF-9o-aCe"/>
                     <constraint firstItem="qgy-ED-pms" firstAttribute="leading" secondItem="6Km-a0-sm8" secondAttribute="leading" id="yra-aN-X6Y"/>
                 </constraints>
             </tableViewCellContentView>
@@ -135,6 +145,7 @@
                 <outlet property="collectionView" destination="8pF-zz-3ti" id="jo9-id-Kto"/>
                 <outlet property="contentLabel" destination="HZ6-lU-wHo" id="ZUW-Jd-xWD"/>
                 <outlet property="createTimeLabel" destination="6Km-a0-sm8" id="3Jb-Q0-yDN"/>
+                <outlet property="deleteButton" destination="xKl-I5-sLt" id="qIM-B3-vBL"/>
                 <outlet property="iconImageView" destination="tfn-Nm-wdc" id="OrF-CN-XZ4"/>
                 <outlet property="userNickNameLabel" destination="r0i-3T-cOS" id="rt6-re-Khn"/>
             </connections>

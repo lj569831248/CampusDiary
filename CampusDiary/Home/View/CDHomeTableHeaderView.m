@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 @property (weak, nonatomic) IBOutlet UILabel *createTimeLabel;
 
+@property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 @end
 @implementation CDHomeTableHeaderView
 
@@ -39,6 +40,11 @@
         [self.delegate tableHeaderView:self didCheckCommentButton:sender];
     }
 }
+- (IBAction)deleteCircle:(UIButton *)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(tableHeaderView:didCheckDeleteButton:)]) {
+        [self.delegate tableHeaderView:self didCheckDeleteButton:sender];
+    }
+}
 
 - (void)setup{
     [self.collectionView registerCellWithClass:[CDPhotoCell class]];
@@ -58,6 +64,12 @@
     self.createTimeLabel.text =[_model.creationTime getLocalDateString];
     self.flowLayout.itemSize = [CDHomeTableHeaderView colletionItmeSize];
     [self.iconImageView sd_setImageWithURL:_model.user.headIcon.getUrl placeholderImage:kImage(@"my_userIcon")];
+    User *currentUser = [User getCurrentUser];
+    if ([currentUser.UserId isEqualToString:_model.user.UserId]) {
+        self.deleteButton.hidden = NO;
+    }else{
+        self.deleteButton.hidden = YES;
+    }
     [self.collectionView reloadData];
 }
 

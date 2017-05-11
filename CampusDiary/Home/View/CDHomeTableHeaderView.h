@@ -12,6 +12,7 @@
 @protocol CDHomeTableHeaderViewDelegate <NSObject>
 
 - (void)tableHeaderView:(CDHomeTableHeaderView *)tableHeaderView didCheckCommentButton:(UIButton *)commentButton;
+- (void)tableHeaderView:(CDHomeTableHeaderView *)tableHeaderView didCheckDeleteButton:(UIButton *)deleteButton;
 
 @end
 @interface CDHomeTableHeaderView : UITableViewHeaderFooterView

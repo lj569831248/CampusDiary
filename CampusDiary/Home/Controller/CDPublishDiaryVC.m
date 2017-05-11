@@ -155,6 +155,7 @@
     item.permission = permisson;
     item.user = [User getCurrentUser];
     item.content = self.textField.text;
+    item.type = 2; //保留字段，用来说明日记类型 先默认为2
     NSMutableArray *photos = [[NSMutableArray alloc] init];
     for (CDPhotoModel *model in self.dataSource) {
         if (model.image) {
@@ -174,6 +175,8 @@
         if (result) {
             resultStr = @"发表成功";
             [self.navigationController popViewControllerAnimated:YES];
+            //通知首页刷新
+            [[NSNotificationCenter defaultCenter] postNotificationName:KPublishSuccessNotification object:nil];
         }
         else{
             resultStr = [NSString stringWithFormat:@"发表失败：%@",error.message];
