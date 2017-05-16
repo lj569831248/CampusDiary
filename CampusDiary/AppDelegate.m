@@ -44,10 +44,9 @@
 }
 
 - (void)setupBaaSSDK{
-//    [DroiLogInternal setLevelPrint:4];
+    [DroiCore setDroiBaaSLogLevel:DroiBaaS_LOG_VERBOSE];
     [DroiCore  initializeCore];
     [DroiObject registerCustomClass:[User class]];
-    
     [DroiObject registerCustomClass:[CircleItem class]];
     [DroiObject registerCustomClass:[CommentItem class]];
     [DroiObject registerCustomClass:[CircleParameter class]];

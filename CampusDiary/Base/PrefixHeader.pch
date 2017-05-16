@@ -21,7 +21,7 @@
 #import "DB.h"
 #import "HUD.h"
 #import "UIImage+Base.h"
-
+#import "NSString+Base.h"
 
 #pragma mark FontSize
 

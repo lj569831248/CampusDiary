@@ -580,8 +580,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FC243C811E53F3BB00DD639D /* Build configuration list for PBXNativeTarget "CampusDiary" */;
 			buildPhases = (
-				C1BB04AC4A0757702A64812C /* [CP] Check Pods Manifest.lock */,
 				B70C47508A5BB5A9EF38F48C /* DroiBaaS Preprocessor */,
+				C1BB04AC4A0757702A64812C /* [CP] Check Pods Manifest.lock */,
 				FC243C661E53F3BB00DD639D /* Sources */,
 				FC243C671E53F3BB00DD639D /* Frameworks */,
 				FC243C681E53F3BB00DD639D /* Resources */,

@@ -13,7 +13,6 @@
 
 @implementation UIViewController (Base)
 + (void)load{
-    NSLog(@"%@ Load",[self class]);
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         Class class = [self class];

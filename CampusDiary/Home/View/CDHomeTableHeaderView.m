@@ -25,7 +25,6 @@
 - (void)awakeFromNib{
     [super awakeFromNib];
     [self setup];
-    NSLog(@"awakeFromNib");
 }
 
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier{
@@ -80,9 +79,9 @@
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    DroiReferenceObject *photo =(DroiReferenceObject *)self.model.photos[indexPath.item];
+    DroiFile *photo =self.model.photos[indexPath.item];
     CDPhotoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[CDPhotoCell cellReuseIdentifier] forIndexPath:indexPath];
-    cell.photo = photo.droiObject;
+    cell.photo = photo;
     return cell;
 }
 

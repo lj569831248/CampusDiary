@@ -147,6 +147,13 @@
 
 
 - (IBAction)publish:(UIButton *)sender {
+    
+    NSString *regex = @"^[\\s]*$";
+    if ([self.textField.text isMatchRegex:regex] || self.textField.text == nil) {
+        [HUD showText:kLocalizedString(@"内容不能为空")];
+        [HUD dismiss];
+        return;
+    }
     //配置权限
     DroiPermission *permisson = [[DroiPermission alloc] init];
     [permisson setPublicReadPermission:YES];
@@ -161,11 +168,7 @@
         if (model.image) {
             NSData *imageData = UIImageJPEGRepresentation(model.image, 0.2);
              DroiFile *photo= [DroiFile fileWithData:imageData];
-//            [photos addObject:photo];
-//            因为是数组需要在外层使用 DroiReferenceObject 包装一下
-            DroiReferenceObject *ref = [[DroiReferenceObject alloc] init];
-            [ref setDroiObject:photo];
-            [photos addObject:ref];
+            [photos addObject:photo];
         }
     }
     item.photos = photos;

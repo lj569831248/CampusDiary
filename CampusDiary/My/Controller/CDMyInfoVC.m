@@ -121,13 +121,22 @@
 - (void)updateNickName{
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *OKAction = [UIAlertAction actionWithTitle:kLocalizedString(@"确定") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        self.user.nickName = alert.textFields[0].text;
-        [self updateCurrentUser];
-        [self.tableView reloadData];
+        NSString *nickName = alert.textFields[0].text;
+        if (nickName.isNickName) {
+            self.user.nickName = alert.textFields[0].text;
+            [self updateCurrentUser];
+            [self.tableView reloadData];
+        }else{
+            [HUD showText:kLocalizedString(@"昵称不合法")];
+            [HUD dismiss];
+        }
+      
     }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:kLocalizedString(@"取消") style:UIAlertActionStyleCancel handler:nil];
     [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = kLocalizedString(@"请输入昵称");
     }];
+    [alert addAction:cancelAction];
     [alert addAction:OKAction];
     [self presentViewController:alert animated:YES completion:nil];
 }
@@ -137,25 +146,32 @@
     UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"请输入旧密码";
+        textField.secureTextEntry = YES;
     }];
     [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"请输入新密码";
+        textField.secureTextEntry = YES;
     }];
     UIAlertAction *actionOK = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         NSString *oldPassword = [alert.textFields[0] text];
         NSString *newPassword = [alert.textFields[1] text];
-        [HUD show];
-        [self.user changePasswordInBackground:oldPassword newPassword:newPassword callback:^(BOOL result, DroiError *error) {
-            if (result) {
-                [HUD showText:@"修改成功"];
-                [self.tableView reloadData];
-            }
-            else{
-                [HUD showText:[NSString stringWithFormat:@"修改失败%@",error.message]];
-            }
-            [HUD dismissAfterDelay:1.5f];
-        }];
-    }];
+        if (newPassword.isPassword) {
+            [HUD show];
+            [self.user changePasswordInBackground:oldPassword newPassword:newPassword callback:^(BOOL result, DroiError *error) {
+                if (result) {
+                    [HUD showText:@"修改成功"];
+                    [self.tableView reloadData];
+                }
+                else{
+                    [HUD showText:[NSString stringWithFormat:@"修改失败%@",error.message]];
+                }
+                [HUD dismissAfterDelay:1.5f];
+            }];
+        }else{
+            [HUD showText:kLocalizedString(@"新密码不合法")];
+            [HUD dismiss];
+        }
+            }];
     [alert addAction:actionCancel];
     [alert addAction:actionOK];
     [self presentViewController:alert animated:YES completion:nil];
@@ -165,18 +181,18 @@
     [HUD show];
     [self.user logoutInBackground:^(BOOL result, DroiError *error) {
         if (result) {
+            [HUD dismissAfterDelay:0.0f];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kUserStateUpdate object:nil];
             [self.navigationController popToRootViewControllerAnimated:YES];
         }else{
             [HUD showText:kLocalizedString(@"退出登录失败")];
             [HUD dismissAfterDelay:1.5];
         }
-        [HUD dismissAfterDelay:0.0f];
     }];
 }
 
 // 上传图片
 - (void)uploadIcon{
-    
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]){
         UIImagePickerController *picker = [[UIImagePickerController alloc] init];
         picker.delegate = self;

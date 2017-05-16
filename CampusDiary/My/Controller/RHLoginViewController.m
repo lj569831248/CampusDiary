@@ -79,12 +79,23 @@
 - (void)registerUser{
     NSString *userName = self.userNameTF.text;
     NSString *password = self.passwordTF.text;
+    if (!userName.isUserName) {
+        [HUD showText:kLocalizedString(@"用户名不合法")];
+        [HUD dismiss];
+        return;
+    }
+    if (!password.isPassword) {
+        [HUD showText:kLocalizedString(@"密码不合法")];
+        [HUD dismiss];
+        return;
+    }
     [HUD show];
     //因为使用了继承 DroiUser 的 User 所以注册的话要用这个方法
     User *user = [User getCurrentUserByUserClass:[User class]];
     NSLog(@"%@  %d",user,user.isLoggedIn);
     user.UserId = userName;
     user.Password = password;
+    user.nickName = userName;
     [user signUpInBackground:^(BOOL result, DroiError *error) {
         NSString *resultStr = nil;
         if (error.isOk && user != nil && [user  isLoggedIn]) {
@@ -108,6 +119,16 @@
 - (void)login{
     NSString *userName = self.userNameTF.text;
     NSString *password = self.passwordTF.text;
+    if (!userName.isUserName) {
+        [HUD showText:kLocalizedString(@"用户名不合法")];
+        [HUD dismiss];
+        return;
+    }
+    if (!password.isPassword) {
+        [HUD showText:kLocalizedString(@"密码不合法")];
+        [HUD dismiss];
+        return;
+    }
     [HUD show];
     [User loginInBackground:userName password:password callback:^(DroiUser *user, DroiError *error) {
         NSString *resultStr = nil;

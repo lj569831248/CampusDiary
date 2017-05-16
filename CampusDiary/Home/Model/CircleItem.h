@@ -22,9 +22,9 @@ DroiReference
 @property (nonatomic , strong) User *user;
 
 DroiExpose
-@property (strong, nonatomic)NSArray <CommentItem *> *commentList;
+@property (strong, nonatomic)NSArray *commentList;
 DroiExpose
-@property (strong, nonatomic)NSArray <FavorItem *> *favorList;
+@property (strong, nonatomic)NSArray  *favorList;
 DroiExpose
 @property (assign, nonatomic)NSInteger favorCount;
 @end

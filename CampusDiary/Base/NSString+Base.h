@@ -50,6 +50,8 @@
 + (BOOL)checkURL:(NSString *) url;
 // 匹配 Email
 + (BOOL)checkEmail:(NSString *)email;
+// 匹配 NickName
++ (BOOL)checkNickName:(NSString *)nickName;
 
 // 验证码
 + (BOOL)checkVerificationCode:(NSString *)verificationCode;
@@ -67,11 +69,10 @@
 - (BOOL)isIdCard;
 // 正则匹配URL
 - (BOOL)isURL;
-
 //4位数字验证码
 - (BOOL)isVerificationCode;
 - (BOOL)isEmail;
-
+- (BOOL)isNickName;
 
 + (NSString *)dictToJsonStr:(NSDictionary *)dict;
 

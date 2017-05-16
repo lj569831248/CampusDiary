@@ -24,6 +24,7 @@
 #import "CircleParameter.h"
 #import "CircleDeleteParameter.h"
 #import "CircleResult.h"
+
 #define kTableHeaderViewHeight 233.0
 #define kPadding 8.0
 
@@ -60,11 +61,11 @@ static NSString *const kDeleteCircleAPIPath = @"/api/v2/removeCircle";
     if (currentUser.isLoggedIn && (!currentUser.isAnonymous)) {
         self.userNickNameLabel.text = currentUser.displayName;
         NSURL *iconUrl = currentUser.headIcon.getUrl;
-        [self.userIconButton sd_setImageWithURL:iconUrl forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"my_userIcon"]];
+        [self.userIconButton sd_setImageWithURL:iconUrl forState:UIControlStateNormal placeholderImage:kImage(@"my_userIcon")];
     }
     else {
         self.userNickNameLabel.text = @"未登录";
-        [self.userIconButton sd_setImageWithURL:nil forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"my_userIcon"]];
+        [self.userIconButton setImage:kImage(@"my_userIcon") forState:UIControlStateNormal];
     }
 }
 
@@ -119,7 +120,7 @@ static NSString *const kDeleteCircleAPIPath = @"/api/v2/removeCircle";
     
     UIRefreshControl *control=[[UIRefreshControl alloc] init];
     control.tintColor = [UIColor whiteColor];
-    [control addTarget:self action:@selector(refreshStateChange:) forControlEvents:UIControlEventValueChanged];
+    [control addTarget:self action:@selector(refreshData:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:control];
     [control beginRefreshing];
     [self refreshData:control];
@@ -129,12 +130,14 @@ static NSString *const kDeleteCircleAPIPath = @"/api/v2/removeCircle";
     footer.refreshingTitleHidden = YES;
     self.tableView.mj_footer = footer;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData:) name:KPublishSuccessNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData:) name:kUserStateUpdate object:nil];
 }
 - (void)dismissCommentView{
 //    NSLog(@"dismissCommentView");
 }
 
 - (void)refreshData:(UIRefreshControl *)control{
+    [HUD show];
     CircleParameter *param = [[CircleParameter alloc] init];
     param.offset = 0;
     param.limit = 10;
@@ -146,46 +149,22 @@ static NSString *const kDeleteCircleAPIPath = @"/api/v2/removeCircle";
             CircleResult *circleResult = (CircleResult *)result;
             //error.isOK 且 result.code == 0 说明数据获取成功
             if (circleResult.code == 0) {
+                [HUD showText:@"刷新成功"];
                 [self.dataSource removeAllObjects];
                 [self.dataSource addObjectsFromArray:circleResult.data];
                 [self.tableView reloadData];
             }else{
+                [HUD showText:@"发生错误"];
                 DLog(@"result 结果获取错误：%ld",circleResult.code);
             }
         }else{
+            [HUD showText:@"发生错误"];
             DLog(@"云代码请求出错 %@",error.message);
         }
+        [HUD dismiss];
+
     } withClassType:CircleResult.class];
 
-}
-
-//下拉刷新使用了系统的 refreshControl
--(void)refreshStateChange:(UIRefreshControl *)control{
-    CircleParameter *param = [[CircleParameter alloc] init];
-    param.offset = 0;
-    param.limit = 10;
-    [DroiCloud callRestApiInBackground:kAPIKey apiPath:kGetCircleListAPIPath method:DROIMETHOD_POST parameter:param andCallback:^(id result, DroiError *error) {
-        [control endRefreshing];
-        if (error.isOk) {
-           CircleResult *circleResult = (CircleResult *)result;
-            //error.isOK 且 result.code == 0 说明数据获取成功
-            if (circleResult.code == 0) {
-                [self.dataSource removeAllObjects];
-                [self.dataSource addObjectsFromArray:circleResult.data];
-                [self.tableView reloadData];
-            }else{
-                DLog(@"result 结果获取错误：%ld",circleResult.code);
-            }
-        }else{
-            DLog(@"云代码请求出错 %@",error.message);
-        }
-    } withClassType:CircleResult.class];
-
-}
-
-- (void)reloadNewData{
-    DLog(@"reloadNewData");
-    [self.tableView.mj_header endRefreshing];
 }
 
 - (void)reloadMoreData{
@@ -198,8 +177,13 @@ static NSString *const kDeleteCircleAPIPath = @"/api/v2/removeCircle";
             CircleResult *circleResult = (CircleResult *)result;
             //error.isOK 且 result.code == 0 说明数据获取成功
             if (circleResult.code == 0) {
-                [self.dataSource addObjectsFromArray:circleResult.data];
-                [self.tableView reloadData];
+                if (circleResult.data.count == 0) {
+                    [HUD showText:@"没有更多了"];
+                    [HUD dismiss];
+                }else{
+                    [self.dataSource addObjectsFromArray:circleResult.data];
+                    [self.tableView reloadData];
+                }
             }else{
                 DLog(@"result 结果获取错误：%ld",circleResult.code);
             }
@@ -232,7 +216,7 @@ static NSString *const kDeleteCircleAPIPath = @"/api/v2/removeCircle";
 
 
 #pragma mark delegate
-
+//点击评论的信息执行的方法
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if ([User currentUserIsLogin]) {
         CircleItem *circleItem = self.dataSource[indexPath.section];
@@ -338,13 +322,6 @@ static NSString *const kDeleteCircleAPIPath = @"/api/v2/removeCircle";
         [self toLogin];
 
     }
-   //    [self showCommentChooser:commentButton];
-//    CGRect frame = [tableHeaderView convertRect:commentButton.frame toView:self.tableView];
-////    NSLog(@"%@",NSStringFromCGRect(frame));
-//    CGRect newFrame = CGRectMake(frame.origin.x - 100, frame.origin.y, 100, 29.5);
-//    UIView *view = [[UIView alloc] initWithFrame:newFrame];
-//    view.backgroundColor = [UIColor redColor];
-//    [self.tableView addSubview:view];
 }
 
 - (void)tableHeaderView:(CDHomeTableHeaderView *)tableHeaderView didCheckDeleteButton:(UIButton *)deleteButton{

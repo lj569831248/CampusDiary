@@ -21,7 +21,6 @@
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="my_userIcon" translatesAutoresizingMaskIntoConstraints="NO" id="tfn-Nm-wdc">
                         <rect key="frame" x="8" y="0.0" width="40" height="40"/>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="6hU-a6-EL8"/>
                             <constraint firstAttribute="width" secondItem="tfn-Nm-wdc" secondAttribute="height" multiplier="1:1" id="CBO-15-vz7"/>

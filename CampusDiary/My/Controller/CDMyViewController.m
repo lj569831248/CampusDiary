@@ -47,7 +47,7 @@
     }
     else {
         self.userNickNameLabel.text = @"未登录";
-        [self.userHeaderIconBtn setBackgroundImage:[UIImage imageNamed:@"my_userIcon"] forState:UIControlStateNormal];
+        [self.userHeaderIconBtn setImage:kImage(@"my_userIcon") forState:UIControlStateNormal];
     }
     
 }
